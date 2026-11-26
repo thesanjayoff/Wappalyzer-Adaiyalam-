@@ -62,4 +62,27 @@ export function registerScanCommand(program: Command): void {
         if (report.savedScanId) console.log(`  saved as scan ${report.savedScanId} (use "adaiyalam history" to list)`);
       }
     });
+
+  program
+    .command("scan-browser")
+    .description("Scan a single URL in full (Playwright browser) mode")
+    .argument("<url>", "URL to scan, e.g. https://example.com")
+    .option("--json", "print the full JSON report instead of a human-readable summary")
+    .option("--yes", "accept the usage notice non-interactively")
+    .option("--allow-private-hosts", "allow scanning localhost/private IPs (for your own dev servers)")
+    .option("--consent <action>", "try to click through a cookie-consent banner: accept, reject, or none", "none")
+    .action(async (url: string, options) => {
+      await ensureNoticeAcknowledged({ assumeYes: options.yes });
+      const { scanUrlBrowser } = await import("@adaiyalam/orchestrator");
+      const report = await scanUrlBrowser(url, {
+        ssrf: { allowPrivateHosts: Boolean(options.allowPrivateHosts) },
+        consentAction: options.consent,
+      });
+      if (options.json) {
+        console.log(JSON.stringify(report, null, 2));
+      } else {
+        printHuman(report);
+        if (report.savedScanId) console.log(`  saved as scan ${report.savedScanId} (use "adaiyalam history" to list)`);
+      }
+    });
 }

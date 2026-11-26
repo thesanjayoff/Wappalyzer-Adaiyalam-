@@ -1,4 +1,4 @@
-import { collectFast, type FastCollectOptions } from "@adaiyalam/collectors";
+import { collectBrowser, collectFast, type BrowserCollectOptions, type FastCollectOptions } from "@adaiyalam/collectors";
 import {
   collectBrowserTargets,
   compileRuleset,
@@ -74,6 +74,44 @@ export async function scanUrlFast(url: string, options: ScanUrlOptions = {}): Pr
     domSelectors: browserTargets.selectors,
     domAttrsBySelector: browserTargets.attrsBySelector,
     jsGlobalCount: browserTargets.jsGlobals.size,
+  });
+
+  const stack = resolveStack(ruleset.rules, facts);
+  const report = buildReport(url, facts, stack, ruleset.version);
+
+  if (options.save !== false) {
+    const record: ScanRecord = recordScan(
+      {
+        url,
+        finalUrl: facts.finalUrl,
+        mode: facts.mode,
+        scannedAt: facts.collectedAt,
+        statusCode: facts.statusCode,
+        rulesetVersion: ruleset.version,
+        techIds: stack.detections.map((d) => d.techId),
+        errors: facts.errors,
+      },
+      facts
+    );
+    report.savedScanId = record.id;
+  }
+
+  return report;
+}
+
+export interface ScanUrlBrowserOptions extends Partial<BrowserCollectOptions> {
+  save?: boolean;
+}
+
+export async function scanUrlBrowser(url: string, options: ScanUrlBrowserOptions = {}): Promise<ScanReport> {
+  const ruleset = getRuleset();
+  const browserTargets = collectBrowserTargets(ruleset.rules);
+
+  const facts: SiteFacts = await collectBrowser(url, {
+    ...options,
+    domSelectors: browserTargets.selectors,
+    domAttrsBySelector: browserTargets.attrsBySelector,
+    jsGlobalPaths: browserTargets.jsGlobals,
   });
 
   const stack = resolveStack(ruleset.rules, facts);

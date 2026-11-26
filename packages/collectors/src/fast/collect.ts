@@ -34,7 +34,7 @@ export interface FastCollectOptions {
 const DEFAULT_MAX_STYLESHEETS = 5;
 const DEFAULT_MAX_PROBES = 5;
 
-async function fetchRobots(origin: string, rateLimiter: RateLimiter, ssrf?: SsrfOptions): Promise<RobotsRules> {
+export async function fetchRobots(origin: string, rateLimiter: RateLimiter, ssrf?: SsrfOptions): Promise<RobotsRules> {
   const host = new URL(origin).hostname;
   await rateLimiter.schedule(host);
   const result = await safeFetch(`${origin}/robots.txt`, {
