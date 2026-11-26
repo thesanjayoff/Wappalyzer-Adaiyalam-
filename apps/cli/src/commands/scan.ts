@@ -109,19 +109,28 @@ export function registerScanCommand(program: Command): void {
     .option("--yes", "accept the usage notice non-interactively")
     .option("--allow-private-hosts", "allow scanning localhost/private IPs (for your own dev servers)")
     .option("--consent <action>", "try to click through a cookie-consent banner: accept, reject, or none", "none")
+    .option("--crawl", "also visit a few same-origin product/checkout/contact-style pages linked from the homepage and merge their signals in")
+    .option("--max-extra-pages <n>", "with --crawl, how many extra pages to visit at most", "2")
     .option("--html <path>", "also write a self-contained HTML report to this path")
     .option("--csv <path>", "also write a CSV (one row per detected technology) to this path")
     .action(async (url: string, options) => {
       await ensureNoticeAcknowledged({ assumeYes: options.yes });
-      const { scanUrlBrowser } = await import("@adaiyalam/orchestrator");
-      const report = await scanUrlBrowser(url, {
-        ssrf: { allowPrivateHosts: Boolean(options.allowPrivateHosts) },
-        consentAction: options.consent,
-      });
+      const { scanUrlBrowser, scanUrlBrowserCrawl } = await import("@adaiyalam/orchestrator");
+      const report = options.crawl
+        ? await scanUrlBrowserCrawl(url, {
+            ssrf: { allowPrivateHosts: Boolean(options.allowPrivateHosts) },
+            consentAction: options.consent,
+            maxExtraPages: Number(options.maxExtraPages),
+          })
+        : await scanUrlBrowser(url, {
+            ssrf: { allowPrivateHosts: Boolean(options.allowPrivateHosts) },
+            consentAction: options.consent,
+          });
       if (options.json) {
         console.log(JSON.stringify(report, null, 2));
       } else {
         printHuman(report);
+        if (report.crawledPages) console.log(`  crawled pages: ${report.crawledPages.join(", ")}`);
         if (report.savedScanId) console.log(`  saved as scan ${report.savedScanId} (use "adaiyalam history" to list)`);
       }
       writeExtraFormats(report, options);

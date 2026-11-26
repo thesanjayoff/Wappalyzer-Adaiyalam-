@@ -28,6 +28,8 @@ export interface ScanReport {
   audit: string[];
   insights: InsightsReport;
   savedScanId?: string;
+  /** Present only for a multi-page crawl scan: every page URL whose facts were merged into this report. */
+  crawledPages?: string[];
 }
 
 let cachedRuleset: LoadedRuleset | undefined;
@@ -49,7 +51,7 @@ export interface ScanUrlOptions extends Partial<FastCollectOptions> {
   save?: boolean;
 }
 
-function buildReport(url: string, facts: SiteFacts, stack: StackResult, rulesetVersion: string): ScanReport {
+export function buildReport(url: string, facts: SiteFacts, stack: StackResult, rulesetVersion: string): ScanReport {
   const ruleset = getRuleset();
   const insights = buildInsightsReport(stack.detections, facts, (techId) => {
     const rule = ruleset.byId.get(techId);

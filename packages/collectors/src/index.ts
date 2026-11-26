@@ -5,5 +5,6 @@ export * from "./net/http-client.js";
 export * from "./net/dns-tls.js";
 export * from "./net/cookies.js";
 export * from "./fast/html.js";
+export * from "./fast/links.js";
 export * from "./fast/collect.js";
 export * from "./browser/collect.js";
