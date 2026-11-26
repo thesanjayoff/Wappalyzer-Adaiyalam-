@@ -301,3 +301,51 @@ details.tech-details summary {
 details.tech-details summary::-webkit-details-marker {
   display: none;
 }
+
+.insights-section {
+  margin-top: 28px;
+}
+
+.insights-caveat {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 4px 0 14px;
+}
+
+.insights {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.insight-group h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+
+.insight-row {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.insight-row .insight-detail {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.insight-row.severity-kev {
+  border-color: #991b1b;
+}
+
+.insights-clean {
+  color: var(--text-muted);
+  font-size: 13px;
+}

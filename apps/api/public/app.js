@@ -10,6 +10,7 @@ const reportMeta = document.getElementById("report-meta");
 const reportErrors = document.getElementById("report-errors");
 const stackGraph = document.getElementById("stack-graph");
 const categoriesEl = document.getElementById("categories");
+const insightsEl = document.getElementById("insights");
 const themeToggle = document.getElementById("theme-toggle");
 
 let categoryLabels = {};
@@ -129,7 +130,6 @@ function renderReport(reportData) {
     const empty = document.createElement("p");
     empty.textContent = "No technologies detected.";
     categoriesEl.appendChild(empty);
-    return;
   }
 
   for (const [categoryId, detections] of byCategory) {
@@ -188,6 +188,120 @@ function renderReport(reportData) {
 
     categoriesEl.appendChild(card);
   }
+
+  renderInsights(reportData.insights);
+}
+
+function insightRow(text, detail, severe) {
+  const row = document.createElement("div");
+  row.className = severe ? "insight-row severity-kev" : "insight-row";
+  const main = document.createElement("div");
+  main.textContent = text;
+  row.appendChild(main);
+  if (detail) {
+    const detailEl = document.createElement("div");
+    detailEl.className = "insight-detail";
+    detailEl.textContent = detail;
+    row.appendChild(detailEl);
+  }
+  return row;
+}
+
+function insightGroup(title, rows) {
+  if (rows.length === 0) return null;
+  const group = document.createElement("div");
+  group.className = "insight-group";
+  const heading = document.createElement("h3");
+  heading.textContent = title;
+  group.appendChild(heading);
+  for (const row of rows) group.appendChild(row);
+  return group;
+}
+
+function renderInsights(insights) {
+  insightsEl.innerHTML = "";
+  if (!insights) return;
+
+  const groups = [];
+
+  const missingHeaders = insights.securityHeaders.filter((h) => !h.present);
+  groups.push(
+    insightGroup(
+      "Missing security headers",
+      missingHeaders.map((h) => insightRow(h.header, h.note))
+    )
+  );
+
+  groups.push(
+    insightGroup(
+      "Exposed version banners",
+      insights.exposedBanners.map((b) => insightRow(`${b.header}: ${b.value}`, b.note))
+    )
+  );
+
+  groups.push(
+    insightGroup(
+      "TLS",
+      insights.tls.map((t) => insightRow(t.issue, t.detail))
+    )
+  );
+
+  if (insights.mixedContent.length > 0) {
+    groups.push(insightGroup("Mixed content", insights.mixedContent.map((m) => insightRow(m.url))));
+  }
+
+  groups.push(
+    insightGroup(
+      "Cookie hygiene",
+      insights.cookies.map((c) => insightRow(c.name, c.issues.join("; ")))
+    )
+  );
+
+  groups.push(
+    insightGroup(
+      "Supply chain",
+      [
+        ...insights.supplyChain.missingIntegrity.map((s) => insightRow("No integrity hash", s.src)),
+        ...insights.supplyChain.typosquattingLikeDomains.map((d) => insightRow(`Lookalike domain: ${d.domain}`, `close to ${d.similarTo} (edit distance ${d.distance})`)),
+      ]
+    )
+  );
+
+  if (insights.privacy.trackers.length > 0 || insights.privacy.thirdPartyDomains.length > 0) {
+    const rows = [
+      ...insights.privacy.trackers.map((t) => insightRow(t.name, t.categories.join(", "))),
+      ...insights.privacy.thirdPartyDomains.map((d) =>
+        insightRow(d.domain, `${d.requestCount} request(s)${d.firedBeforeConsent ? " — fired before consent" : ""}`)
+      ),
+    ];
+    groups.push(insightGroup("Privacy / third parties", rows));
+    if (insights.privacy.note) {
+      const note = document.createElement("p");
+      note.className = "insights-caveat";
+      note.textContent = insights.privacy.note;
+      groups.push(note);
+    }
+  }
+
+  groups.push(
+    insightGroup(
+      "Vulnerability & EOL hints",
+      insights.vulnerabilities.map((v) => {
+        const label = v.source === "osv" ? `${v.id} (${v.severity ?? "severity unknown"})` : v.eolStatus;
+        return insightRow(`${v.name}${v.version ? ` v${v.version}` : ""}: ${label}`, v.eolDetail ?? v.summary ?? v.disclaimer, Boolean(v.kev));
+      })
+    )
+  );
+
+  const rendered = groups.filter(Boolean);
+  if (rendered.length === 0) {
+    const clean = document.createElement("p");
+    clean.className = "insights-clean";
+    clean.textContent = "No security or privacy notes for this scan.";
+    insightsEl.appendChild(clean);
+    return;
+  }
+  for (const group of rendered) insightsEl.appendChild(group);
 }
 
 scanForm.addEventListener("submit", async (event) => {

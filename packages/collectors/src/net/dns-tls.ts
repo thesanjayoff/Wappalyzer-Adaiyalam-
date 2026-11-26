@@ -36,6 +36,7 @@ export async function collectDnsRecords(hostname: string): Promise<DnsRecords> {
 export interface TlsInfo {
   issuer?: string;
   valid?: boolean;
+  protocol?: string;
   error?: string;
 }
 
@@ -68,7 +69,7 @@ export async function collectTlsInfo(hostname: string, port = 443, options: Ssrf
             .map(([k, v]) => `${k}=${v}`)
             .join(", ")
         : undefined;
-      finish({ issuer, valid: socket.authorized });
+      finish({ issuer, valid: socket.authorized, protocol: socket.getProtocol() ?? undefined });
     });
     socket.once("timeout", () => finish({ error: "TLS handshake timed out" }));
     socket.once("error", (err) => finish({ error: err.message }));

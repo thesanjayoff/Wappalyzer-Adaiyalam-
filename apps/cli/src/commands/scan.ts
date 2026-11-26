@@ -35,6 +35,29 @@ function printHuman(report: Awaited<ReturnType<typeof scanUrlFast>>): void {
     }
   }
   console.log(`\n  ruleset version: ${report.rulesetVersion}`);
+  printInsights(report.insights);
+}
+
+function printInsights(insights: Awaited<ReturnType<typeof scanUrlFast>>["insights"]): void {
+  const missingHeaders = insights.securityHeaders.filter((h) => !h.present);
+  const lines: string[] = [];
+
+  if (missingHeaders.length > 0) lines.push(`missing security headers: ${missingHeaders.map((h) => h.header).join(", ")}`);
+  for (const banner of insights.exposedBanners) lines.push(`exposed version banner: ${banner.header}: ${banner.value}`);
+  for (const tls of insights.tls) lines.push(`TLS issue: ${tls.detail}`);
+  if (insights.mixedContent.length > 0) lines.push(`mixed content: ${insights.mixedContent.length} http:// resource(s) on an https page`);
+  for (const cookie of insights.cookies) lines.push(`cookie '${cookie.name}': ${cookie.issues.join("; ")}`);
+  for (const script of insights.supplyChain.missingIntegrity) lines.push(`CDN script without integrity hash: ${script.src}`);
+  for (const domain of insights.supplyChain.typosquattingLikeDomains) lines.push(`domain '${domain.domain}' looks suspiciously close to '${domain.similarTo}'`);
+  if (insights.privacy.trackers.length > 0) lines.push(`${insights.privacy.trackers.length} tracker(s): ${insights.privacy.trackers.map((t) => t.name).join(", ")}`);
+  for (const vuln of insights.vulnerabilities) {
+    const label = vuln.source === "osv" ? `${vuln.id} (${vuln.severity ?? "severity unknown"}${vuln.kev ? ", in CISA KEV" : ""})` : `${vuln.eolStatus}`;
+    lines.push(`${vuln.name}${vuln.version ? ` v${vuln.version}` : ""}: ${label} — ${vuln.eolDetail ?? vuln.summary ?? ""}`);
+  }
+
+  if (lines.length === 0) return;
+  console.log("\n  security & privacy notes (probabilistic hints, not confirmed findings):");
+  for (const line of lines) console.log(`    - ${line}`);
 }
 
 export function registerScanCommand(program: Command): void {

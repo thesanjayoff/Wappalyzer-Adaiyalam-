@@ -104,6 +104,7 @@ export async function collectFast(targetUrl: string, options: FastCollectOptions
     facts.metaTags = parsedHtml.metaTags;
     facts.scriptSrcs = parsedHtml.scriptSrcs;
     facts.scriptInline = parsedHtml.scriptInline;
+    facts.scriptTags = parsedHtml.scriptTags;
     facts.linkTags = parsedHtml.linkTags;
     facts.cssText = [...parsedHtml.inlineStyles];
 
@@ -146,6 +147,7 @@ export async function collectFast(targetUrl: string, options: FastCollectOptions
     const tlsInfo = await collectTlsInfo(finalUrlObj.hostname, 443, options.ssrf);
     facts.tlsIssuer = tlsInfo.issuer;
     facts.tlsValid = tlsInfo.valid;
+    facts.tlsProtocol = tlsInfo.protocol;
     if (tlsInfo.error) facts.errors.push(`TLS: ${tlsInfo.error}`);
   }
 

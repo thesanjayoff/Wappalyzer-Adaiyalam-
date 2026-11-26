@@ -11,6 +11,7 @@ export interface ParsedHtml {
   metaTags: MetaFact[];
   scriptSrcs: string[];
   scriptInline: string[];
+  scriptTags: { src: string; integrity?: string }[];
   linkTags: LinkFact[];
   inlineStyles: string[];
 }
@@ -27,14 +28,18 @@ export function parseHtml(html: string, baseUrl: string): ParsedHtml {
 
   const scriptSrcs: string[] = [];
   const scriptInline: string[] = [];
+  const scriptTags: { src: string; integrity?: string }[] = [];
   $("script").each((_, el) => {
     const src = el.attribs?.src;
     if (src) {
+      let resolved = src;
       try {
-        scriptSrcs.push(new URL(src, baseUrl).toString());
+        resolved = new URL(src, baseUrl).toString();
       } catch {
-        scriptSrcs.push(src);
+        // keep the raw value if it's not a resolvable URL
       }
+      scriptSrcs.push(resolved);
+      scriptTags.push({ src: resolved, integrity: el.attribs?.integrity || undefined });
     } else if (scriptInline.length < MAX_INLINE_SCRIPTS) {
       const body = $(el).text();
       if (body.trim()) scriptInline.push(truncate(body, MAX_INLINE_SCRIPT_CHARS));
@@ -60,7 +65,7 @@ export function parseHtml(html: string, baseUrl: string): ParsedHtml {
     if (body.trim()) inlineStyles.push(truncate(body, MAX_CSS_CHARS));
   });
 
-  return { $, metaTags, scriptSrcs, scriptInline, linkTags, inlineStyles };
+  return { $, metaTags, scriptSrcs, scriptInline, scriptTags, linkTags, inlineStyles };
 }
 
 /**

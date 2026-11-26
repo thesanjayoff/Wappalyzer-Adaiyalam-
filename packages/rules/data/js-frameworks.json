@@ -6,91 +6,270 @@
       "name": "React",
       "description": "JavaScript library for building user interfaces.",
       "website": "https://react.dev",
-      "categories": ["js-library"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-library"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "jsGlobal", "key": "React.version", "pattern": "(.*)", "confidence": 95, "version": "$1" },
-        { "type": "html", "pattern": "data-reactroot|data-reactid", "confidence": 55 },
-        { "type": "scriptSrc", "pattern": "react(?:-dom)?(?:\\.[a-z]+)?\\.js", "confidence": 40 },
-        { "type": "html", "pattern": "__REACT_DEVTOOLS_GLOBAL_HOOK__", "confidence": 30 }
-      ]
+        {
+          "type": "jsGlobal",
+          "key": "React.version",
+          "pattern": "(.*)",
+          "confidence": 95,
+          "version": "$1"
+        },
+        {
+          "type": "html",
+          "pattern": "data-reactroot|data-reactid",
+          "confidence": 55
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "react(?:-dom)?(?:\\.[a-z]+)?\\.js",
+          "confidence": 40
+        },
+        {
+          "type": "html",
+          "pattern": "__REACT_DEVTOOLS_GLOBAL_HOOK__",
+          "confidence": 30
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "react"
+      }
     },
     {
       "id": "nextjs",
       "name": "Next.js",
       "description": "React framework for server-rendered and statically-generated apps.",
       "website": "https://nextjs.org",
-      "categories": ["js-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
-      "implies": [{ "id": "reactjs", "confidence": 95 }],
+      "implies": [
+        {
+          "id": "reactjs",
+          "confidence": 95
+        }
+      ],
       "evidence": [
-        { "type": "domAttr", "key": "script#__NEXT_DATA__", "attr": "type", "pattern": "application/json", "confidence": 90 },
-        { "type": "html", "pattern": "<script id=\"__NEXT_DATA__\"", "confidence": 95 },
-        { "type": "jsGlobal", "key": "next.version", "pattern": "(.*)", "confidence": 95, "version": "$1" },
-        { "type": "header", "key": "x-powered-by", "pattern": "^Next\\.js(?:\\s*([0-9.]+))?", "confidence": 90, "version": "$1" },
-        { "type": "scriptSrc", "pattern": "/_next/static/", "confidence": 80 }
-      ]
+        {
+          "type": "domAttr",
+          "key": "script#__NEXT_DATA__",
+          "attr": "type",
+          "pattern": "application/json",
+          "confidence": 90
+        },
+        {
+          "type": "html",
+          "pattern": "<script id=\"__NEXT_DATA__\"",
+          "confidence": 95
+        },
+        {
+          "type": "jsGlobal",
+          "key": "next.version",
+          "pattern": "(.*)",
+          "confidence": 95,
+          "version": "$1"
+        },
+        {
+          "type": "header",
+          "key": "x-powered-by",
+          "pattern": "^Next\\.js(?:\\s*([0-9.]+))?",
+          "confidence": 90,
+          "version": "$1"
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "/_next/static/",
+          "confidence": 80
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "next"
+      }
     },
     {
       "id": "vuejs",
       "name": "Vue.js",
       "description": "JavaScript framework for building user interfaces.",
       "website": "https://vuejs.org",
-      "categories": ["js-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "jsGlobal", "key": "Vue.version", "pattern": "(.*)", "confidence": 95, "version": "$1" },
-        { "type": "domAttr", "key": "[data-v-app]", "attr": "data-v-app", "pattern": ".*", "confidence": 60 },
-        { "type": "html", "pattern": "data-v-[a-f0-9]{8}", "confidence": 45 },
-        { "type": "scriptSrc", "pattern": "vue(?:\\.runtime)?(?:\\.min)?\\.js", "confidence": 40 }
-      ]
+        {
+          "type": "jsGlobal",
+          "key": "Vue.version",
+          "pattern": "(.*)",
+          "confidence": 95,
+          "version": "$1"
+        },
+        {
+          "type": "domAttr",
+          "key": "[data-v-app]",
+          "attr": "data-v-app",
+          "pattern": ".*",
+          "confidence": 60
+        },
+        {
+          "type": "html",
+          "pattern": "data-v-[a-f0-9]{8}",
+          "confidence": 45
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "vue(?:\\.runtime)?(?:\\.min)?\\.js",
+          "confidence": 40
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "vue"
+      }
     },
     {
       "id": "nuxtjs",
       "name": "Nuxt",
       "description": "Vue.js framework for server-rendered and statically-generated apps.",
       "website": "https://nuxt.com",
-      "categories": ["js-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
-      "implies": [{ "id": "vuejs", "confidence": 90 }],
+      "implies": [
+        {
+          "id": "vuejs",
+          "confidence": 90
+        }
+      ],
       "evidence": [
-        { "type": "html", "pattern": "window\\.__NUXT__", "confidence": 90 },
-        { "type": "jsGlobal", "key": "$nuxt", "pattern": ".*", "confidence": 90 },
-        { "type": "scriptSrc", "pattern": "/_nuxt/", "confidence": 85 },
-        { "type": "meta", "key": "generator", "pattern": "^Nuxt(?:\\s*([0-9.]+))?", "confidence": 90, "version": "$1" }
-      ]
+        {
+          "type": "html",
+          "pattern": "window\\.__NUXT__",
+          "confidence": 90
+        },
+        {
+          "type": "jsGlobal",
+          "key": "$nuxt",
+          "pattern": ".*",
+          "confidence": 90
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "/_nuxt/",
+          "confidence": 85
+        },
+        {
+          "type": "meta",
+          "key": "generator",
+          "pattern": "^Nuxt(?:\\s*([0-9.]+))?",
+          "confidence": 90,
+          "version": "$1"
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "nuxt"
+      }
     },
     {
       "id": "angular",
       "name": "Angular",
       "description": "TypeScript-based web application framework by Google.",
       "website": "https://angular.dev",
-      "categories": ["js-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "jsGlobal", "key": "ng.VERSION.full", "pattern": "(.*)", "confidence": 95, "version": "$1" },
-        { "type": "domAttr", "key": "[ng-version]", "attr": "ng-version", "pattern": "(.*)", "confidence": 95, "version": "$1" },
-        { "type": "html", "pattern": "ng-version=\"([0-9.]+)\"", "confidence": 90, "version": "$1" },
-        { "type": "domExists", "key": "app-root, [ng-app]", "confidence": 40 }
-      ]
+        {
+          "type": "jsGlobal",
+          "key": "ng.VERSION.full",
+          "pattern": "(.*)",
+          "confidence": 95,
+          "version": "$1"
+        },
+        {
+          "type": "domAttr",
+          "key": "[ng-version]",
+          "attr": "ng-version",
+          "pattern": "(.*)",
+          "confidence": 95,
+          "version": "$1"
+        },
+        {
+          "type": "html",
+          "pattern": "ng-version=\"([0-9.]+)\"",
+          "confidence": 90,
+          "version": "$1"
+        },
+        {
+          "type": "domExists",
+          "key": "app-root, [ng-app]",
+          "confidence": 40
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "@angular/core"
+      }
     },
     {
       "id": "sveltejs",
       "name": "Svelte",
       "description": "Compiler-based JavaScript UI framework.",
       "website": "https://svelte.dev",
-      "categories": ["js-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "html", "pattern": "class=\"[^\"]*svelte-[a-z0-9]{6,}[^\"]*\"", "confidence": 55 },
-        { "type": "jsGlobal", "key": "__svelte__", "pattern": ".*", "confidence": 60 },
-        { "type": "scriptSrc", "pattern": "/_app/immutable/", "confidence": 60, "note": "SvelteKit build output path" }
+        {
+          "type": "html",
+          "pattern": "class=\"[^\"]*svelte-[a-z0-9]{6,}[^\"]*\"",
+          "confidence": 55
+        },
+        {
+          "type": "jsGlobal",
+          "key": "__svelte__",
+          "pattern": ".*",
+          "confidence": 60
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "/_app/immutable/",
+          "confidence": 60,
+          "note": "SvelteKit build output path"
+        }
       ]
     },
     {
@@ -98,41 +277,107 @@
       "name": "jQuery",
       "description": "JavaScript library for DOM manipulation and AJAX.",
       "website": "https://jquery.com",
-      "categories": ["js-library"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "js-library"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "jsGlobal", "key": "jQuery.fn.jquery", "pattern": "(.*)", "confidence": 95, "version": "$1" },
-        { "type": "scriptSrc", "pattern": "jquery(?:-([0-9.]+))?(?:\\.min)?\\.js", "confidence": 70, "version": "$1" },
-        { "type": "scriptSrc", "pattern": "ajax/libs/jquery/([0-9.]+)/jquery", "confidence": 80, "version": "$1" }
-      ]
+        {
+          "type": "jsGlobal",
+          "key": "jQuery.fn.jquery",
+          "pattern": "(.*)",
+          "confidence": 95,
+          "version": "$1"
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "jquery(?:-([0-9.]+))?(?:\\.min)?\\.js",
+          "confidence": 70,
+          "version": "$1"
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "ajax/libs/jquery/([0-9.]+)/jquery",
+          "confidence": 80,
+          "version": "$1"
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "jquery"
+      }
     },
     {
       "id": "bootstrap",
       "name": "Bootstrap",
       "description": "CSS/JS UI framework.",
       "website": "https://getbootstrap.com",
-      "categories": ["ui-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "ui-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "scriptSrc", "pattern": "bootstrap(?:\\.bundle)?(?:\\.min)?\\.js", "confidence": 60 },
-        { "type": "css", "pattern": "/\\*!\\s*Bootstrap\\s*v([0-9.]+)", "confidence": 90, "version": "$1" },
-        { "type": "scriptSrc", "pattern": "ajax/libs/twitter-bootstrap/([0-9.]+)/", "confidence": 85, "version": "$1" },
-        { "type": "html", "pattern": "class=\"[^\"]*\\b(?:container-fluid|navbar-expand-lg|col-md-[0-9]+)\\b", "confidence": 20 }
-      ]
+        {
+          "type": "scriptSrc",
+          "pattern": "bootstrap(?:\\.bundle)?(?:\\.min)?\\.js",
+          "confidence": 60
+        },
+        {
+          "type": "css",
+          "pattern": "/\\*!\\s*Bootstrap\\s*v([0-9.]+)",
+          "confidence": 90,
+          "version": "$1"
+        },
+        {
+          "type": "scriptSrc",
+          "pattern": "ajax/libs/twitter-bootstrap/([0-9.]+)/",
+          "confidence": 85,
+          "version": "$1"
+        },
+        {
+          "type": "html",
+          "pattern": "class=\"[^\"]*\\b(?:container-fluid|navbar-expand-lg|col-md-[0-9]+)\\b",
+          "confidence": 20
+        }
+      ],
+      "osvPackage": {
+        "ecosystem": "npm",
+        "name": "bootstrap"
+      }
     },
     {
       "id": "tailwindcss",
       "name": "Tailwind CSS",
       "description": "Utility-first CSS framework.",
       "website": "https://tailwindcss.com",
-      "categories": ["ui-framework"],
-      "pricing": ["free", "open-source"],
+      "categories": [
+        "ui-framework"
+      ],
+      "pricing": [
+        "free",
+        "open-source"
+      ],
       "openSource": true,
       "evidence": [
-        { "type": "css", "pattern": "tailwindcss\\s*v([0-9.]+)", "confidence": 90, "version": "$1" },
-        { "type": "html", "pattern": "class=\"[^\"]*\\b(?:flex|grid)\\b[^\"]*\\b(?:px-|py-|text-|bg-)[a-z]+-[0-9]+\\b", "confidence": 25 }
+        {
+          "type": "css",
+          "pattern": "tailwindcss\\s*v([0-9.]+)",
+          "confidence": 90,
+          "version": "$1"
+        },
+        {
+          "type": "html",
+          "pattern": "class=\"[^\"]*\\b(?:flex|grid)\\b[^\"]*\\b(?:px-|py-|text-|bg-)[a-z]+-[0-9]+\\b",
+          "confidence": 25
+        }
       ]
     }
   ]

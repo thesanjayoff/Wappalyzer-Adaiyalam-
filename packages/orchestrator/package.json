@@ -9,6 +9,7 @@
     "@adaiyalam/collectors": "*",
     "@adaiyalam/config": "*",
     "@adaiyalam/engine": "*",
+    "@adaiyalam/insights": "*",
     "@adaiyalam/rules": "*",
     "@adaiyalam/schema": "*",
     "@adaiyalam/store": "*"

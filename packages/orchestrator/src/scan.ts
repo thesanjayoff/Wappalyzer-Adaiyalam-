@@ -10,6 +10,7 @@ import {
 } from "@adaiyalam/engine";
 import { loadDefaultRuleset } from "@adaiyalam/rules";
 import { recordScan, type ScanRecord } from "@adaiyalam/store";
+import { buildInsightsReport, type InsightsReport } from "@adaiyalam/insights";
 
 export interface ScanReport {
   url: string;
@@ -25,6 +26,7 @@ export interface ScanReport {
   };
   detections: DetectionResult[];
   audit: string[];
+  insights: InsightsReport;
   savedScanId?: string;
 }
 
@@ -48,6 +50,12 @@ export interface ScanUrlOptions extends Partial<FastCollectOptions> {
 }
 
 function buildReport(url: string, facts: SiteFacts, stack: StackResult, rulesetVersion: string): ScanReport {
+  const ruleset = getRuleset();
+  const insights = buildInsightsReport(stack.detections, facts, (techId) => {
+    const rule = ruleset.byId.get(techId);
+    return rule ? { cpe: rule.cpe, osvPackage: rule.osvPackage } : undefined;
+  });
+
   return {
     url,
     mode: facts.mode,
@@ -62,6 +70,7 @@ function buildReport(url: string, facts: SiteFacts, stack: StackResult, rulesetV
     },
     detections: stack.detections,
     audit: stack.audit,
+    insights,
   };
 }
 

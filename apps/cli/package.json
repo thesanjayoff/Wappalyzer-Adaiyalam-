@@ -14,6 +14,7 @@
     "@adaiyalam/rules": "*",
     "@adaiyalam/schema": "*",
     "@adaiyalam/store": "*",
+    "@adaiyalam/vuln-data": "*",
     "commander": "^12.1.0"
   }
 }

@@ -1,0 +1,38 @@
+{
+  "asOf": "2026-01-01",
+  "disclaimer": "Dates below are transcribed from each project's own published support schedule as of 'asOf'. Schedules can be revised by the vendor after that date — always check 'source' before treating a date as current, and treat this file as something to keep updated (it is a plain local JSON file you can edit), not a live feed.",
+  "technologies": [
+    {
+      "techId": "php",
+      "source": "https://www.php.net/supported-versions.php",
+      "cycles": [
+        { "versionRange": ">=7.4.0 <8.0.0", "activeSupportUntil": "2021-11-28", "securitySupportUntil": "2022-11-28" },
+        { "versionRange": ">=8.0.0 <8.1.0", "activeSupportUntil": "2022-11-26", "securitySupportUntil": "2023-11-26" },
+        { "versionRange": ">=8.1.0 <8.2.0", "activeSupportUntil": "2023-11-25", "securitySupportUntil": "2025-12-31" },
+        { "versionRange": ">=8.2.0 <8.3.0", "activeSupportUntil": "2024-12-31", "securitySupportUntil": "2026-12-31" },
+        { "versionRange": ">=8.3.0 <8.4.0", "activeSupportUntil": "2025-12-31", "securitySupportUntil": "2027-12-31" },
+        { "versionRange": ">=8.4.0 <8.5.0", "activeSupportUntil": "2026-12-31", "securitySupportUntil": "2028-12-31" }
+      ]
+    },
+    {
+      "techId": "nodejs",
+      "source": "https://nodejs.org/en/about/previous-releases",
+      "cycles": [
+        { "versionRange": ">=16.0.0 <17.0.0", "activeSupportUntil": "2022-10-18", "securitySupportUntil": "2023-09-11" },
+        { "versionRange": ">=18.0.0 <19.0.0", "activeSupportUntil": "2023-10-18", "securitySupportUntil": "2025-04-30" },
+        { "versionRange": ">=20.0.0 <21.0.0", "activeSupportUntil": "2024-10-22", "securitySupportUntil": "2026-04-30" },
+        { "versionRange": ">=22.0.0 <23.0.0", "activeSupportUntil": "2025-10-21", "securitySupportUntil": "2027-04-30" }
+      ]
+    }
+  ],
+  "noFixedScheduleNotes": [
+    {
+      "techId": "wordpress",
+      "note": "WordPress core does not publish a fixed end-of-life date per version; the project backports security fixes to old branches on a best-effort basis. Treat any specific EOL date claimed for a WordPress version as unverified."
+    },
+    {
+      "techId": "jquery",
+      "note": "jQuery has no formal EOL schedule. Versions before 3.4.0 are affected by a well-known prototype-pollution/XSS issue (CVE-2019-11358); versions before 3.5.0 have other documented XSS issues. Treat these as 'known issues in old versions', not a vendor-declared EOL."
+    }
+  ]
+}

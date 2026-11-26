@@ -88,6 +88,8 @@ export const fingerprintSchema = z.object({
   saas: z.boolean().optional(),
   /** CPE 2.3 template, e.g. "cpe:2.3:a:wordpress:wordpress:{version}:*:*:*:*:*:*:*". */
   cpe: z.string().optional(),
+  /** When this technology is also published as a package manager ecosystem package, enables OSV.dev-based vulnerability hints. */
+  osvPackage: z.object({ ecosystem: z.string(), name: z.string() }).optional(),
   implies: z.array(impliesEntrySchema).default([]),
   requires: z.array(z.string()).default([]),
   excludes: z.array(z.string()).default([]),

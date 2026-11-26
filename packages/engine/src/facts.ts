@@ -71,6 +71,8 @@ export interface SiteFacts {
   metaTags: MetaFact[];
   scriptSrcs: string[];
   scriptInline: string[];
+  /** Same scripts as `scriptSrcs`, with their `integrity` attribute if present — used for supply-chain hygiene checks. */
+  scriptTags: { src: string; integrity?: string }[];
   linkTags: LinkFact[];
   /** Inline <style> bodies + fetched linked stylesheet bodies, capped. */
   cssText: string[];
@@ -84,6 +86,7 @@ export interface SiteFacts {
   };
   tlsIssuer?: string;
   tlsValid?: boolean;
+  tlsProtocol?: string;
   faviconHash?: string;
   probes: Record<string, ProbeFact>;
   networkRequests: NetworkRequestFact[];
@@ -118,6 +121,7 @@ export function emptyFacts(url: string, mode: "fast" | "browser"): SiteFacts {
     metaTags: [],
     scriptSrcs: [],
     scriptInline: [],
+    scriptTags: [],
     linkTags: [],
     cssText: [],
     probes: {},

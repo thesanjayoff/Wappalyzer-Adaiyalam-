@@ -11,6 +11,8 @@
     { "path": "../engine" },
     { "path": "../collectors" },
     { "path": "../rules" },
-    { "path": "../store" }
+    { "path": "../store" },
+    { "path": "../insights" },
+    { "path": "../vuln-data" }
   ]
 }

@@ -13,6 +13,8 @@
     { "path": "../../packages/collectors" },
     { "path": "../../packages/rules" },
     { "path": "../../packages/store" },
+    { "path": "../../packages/vuln-data" },
+    { "path": "../../packages/insights" },
     { "path": "../../packages/orchestrator" },
     { "path": "../api" }
   ]
