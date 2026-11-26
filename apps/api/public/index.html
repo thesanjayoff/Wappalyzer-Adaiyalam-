@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adaiyalam</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">◆</span>
+          <span class="brand-name">Adaiyalam</span>
+        </div>
+
+        <form id="scan-form" class="scan-form">
+          <input id="scan-url" type="text" placeholder="https://example.com" autocomplete="off" required />
+          <button type="submit" id="scan-submit">Scan</button>
+        </form>
+        <p id="scan-status" class="scan-status"></p>
+
+        <div class="sidebar-section">
+          <h3>Sites</h3>
+          <ul id="site-list" class="site-list"></ul>
+        </div>
+
+        <button id="theme-toggle" class="theme-toggle" type="button">Toggle dark mode</button>
+      </aside>
+
+      <main class="main">
+        <div id="empty-state" class="empty-state">
+          <h1>Adaiyalam</h1>
+          <p>An open, evidence-based website technology detector. Scan a URL to see its stack.</p>
+        </div>
+
+        <div id="report" class="report hidden">
+          <header class="report-header">
+            <h1 id="report-title"></h1>
+            <div id="report-meta" class="report-meta"></div>
+          </header>
+
+          <section id="report-errors" class="report-errors hidden"></section>
+
+          <section class="stack-graph-section">
+            <h2>Stack</h2>
+            <div id="stack-graph" class="stack-graph"></div>
+          </section>
+
+          <section class="categories" id="categories"></section>
+        </div>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

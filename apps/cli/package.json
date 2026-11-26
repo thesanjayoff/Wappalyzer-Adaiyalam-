@@ -7,6 +7,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@adaiyalam/api": "*",
     "@adaiyalam/config": "*",
     "@adaiyalam/engine": "*",
     "@adaiyalam/orchestrator": "*",

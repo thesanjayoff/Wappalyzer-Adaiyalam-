@@ -4,6 +4,7 @@ import { APP_NAME, APP_TAGLINE } from "@adaiyalam/config";
 import { registerScanCommand } from "./commands/scan.js";
 import { registerRuleCommand } from "./commands/rule.js";
 import { registerHistoryCommands } from "./commands/history.js";
+import { registerDashboardCommand } from "./commands/dashboard.js";
 
 const program = new Command();
 program.name(APP_NAME.toLowerCase()).description(`${APP_NAME} — ${APP_TAGLINE}`).version("0.1.0");
@@ -11,6 +12,7 @@ program.name(APP_NAME.toLowerCase()).description(`${APP_NAME} — ${APP_TAGLINE}
 registerScanCommand(program);
 registerRuleCommand(program);
 registerHistoryCommands(program);
+registerDashboardCommand(program);
 
 program.parseAsync(process.argv).catch((err: Error) => {
   console.error(`Error: ${err.message}`);
