@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "google-analytics",
+      "name": "Google Analytics",
+      "description": "Web analytics service (Universal Analytics and GA4).",
+      "website": "https://marketingplatform.google.com/about/analytics/",
+      "categories": ["analytics"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "googletagmanager\\.com/gtag/js", "confidence": 70 },
+        { "type": "scriptSrc", "pattern": "google-analytics\\.com/analytics\\.js", "confidence": 85 },
+        { "type": "scriptSrc", "pattern": "googletagmanager\\.com/gtag/js\\?id=(G-[A-Z0-9]+)", "confidence": 90, "version": "$1" },
+        { "type": "cookie", "key": "_ga", "pattern": ".*", "confidence": 70 },
+        { "type": "jsGlobal", "key": "gtag", "pattern": ".*", "confidence": 40 },
+        { "type": "jsGlobal", "key": "ga", "pattern": ".*", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "google-tag-manager",
+      "name": "Google Tag Manager",
+      "description": "Tag management system.",
+      "website": "https://tagmanager.google.com",
+      "categories": ["tag-manager"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "googletagmanager\\.com/gtm\\.js\\?id=(GTM-[A-Z0-9]+)", "confidence": 95, "version": "$1" },
+        { "type": "html", "pattern": "googletagmanager\\.com/ns\\.html\\?id=(GTM-[A-Z0-9]+)", "confidence": 90, "version": "$1" },
+        { "type": "jsGlobal", "key": "google_tag_manager", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "matomo",
+      "name": "Matomo",
+      "description": "Open-source, privacy-focused web analytics platform.",
+      "website": "https://matomo.org",
+      "categories": ["analytics"],
+      "pricing": ["free", "open-source", "paid"],
+      "openSource": true,
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "matomo\\.js|piwik\\.js", "confidence": 80 },
+        { "type": "jsGlobal", "key": "Matomo", "pattern": ".*", "confidence": 70 },
+        { "type": "jsGlobal", "key": "_paq", "pattern": ".*", "confidence": 50 },
+        { "type": "cookie", "key": "_pk_id*", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "hotjar",
+      "name": "Hotjar",
+      "description": "Session-replay and heatmap analytics tool.",
+      "website": "https://www.hotjar.com",
+      "categories": ["session-replay"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.hotjar\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "hj", "pattern": ".*", "confidence": 70 },
+        { "type": "cookie", "key": "_hjSessionUser*", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "microsoft-clarity",
+      "name": "Microsoft Clarity",
+      "description": "Session-replay and heatmap analytics tool.",
+      "website": "https://clarity.microsoft.com",
+      "categories": ["session-replay"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "clarity\\.ms/tag/([a-z0-9]+)", "confidence": 90, "version": "$1" },
+        { "type": "jsGlobal", "key": "clarity", "pattern": ".*", "confidence": 60 },
+        { "type": "cookie", "key": "_clck", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "meta-pixel",
+      "name": "Meta Pixel",
+      "description": "Facebook/Meta advertising conversion-tracking pixel.",
+      "website": "https://www.facebook.com/business/tools/meta-pixel",
+      "categories": ["advertising"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "connect\\.facebook\\.net/[^/]+/fbevents\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "fbq", "pattern": ".*", "confidence": 70 },
+        { "type": "html", "pattern": "facebook\\.com/tr\\?id=([0-9]+)", "confidence": 85, "version": "$1" }
+      ]
+    },
+    {
+      "id": "google-ads-conversion",
+      "name": "Google Ads Conversion Tracking",
+      "description": "Google Ads conversion / remarketing tag.",
+      "website": "https://ads.google.com",
+      "categories": ["advertising"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "googleadservices\\.com/pagead/conversion", "confidence": 85 },
+        { "type": "scriptSrc", "pattern": "googletagmanager\\.com/gtag/js\\?id=(AW-[0-9]+)", "confidence": 90, "version": "$1" },
+        { "type": "cookie", "key": "_gcl_au", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "linkedin-insight-tag",
+      "name": "LinkedIn Insight Tag",
+      "description": "LinkedIn advertising conversion-tracking pixel.",
+      "website": "https://business.linkedin.com/marketing-solutions/insight-tag",
+      "categories": ["advertising"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "snap\\.licdn\\.com/li\\.lms-analytics", "confidence": 90 },
+        { "type": "jsGlobal", "key": "_linkedin_data_partner_ids", "pattern": ".*", "confidence": 70 },
+        { "type": "cookie", "key": "li_sugr", "pattern": ".*", "confidence": 25 }
+      ]
+    }
+  ]
+}

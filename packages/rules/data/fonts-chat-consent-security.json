@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "google-fonts",
+      "name": "Google Fonts",
+      "description": "Free web font hosting service.",
+      "website": "https://fonts.google.com",
+      "categories": ["fonts"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "html", "pattern": "fonts\\.googleapis\\.com/css", "confidence": 85 },
+        { "type": "scriptSrc", "pattern": "fonts\\.googleapis\\.com", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "font-awesome",
+      "name": "Font Awesome",
+      "description": "Icon font and SVG icon toolkit.",
+      "website": "https://fontawesome.com",
+      "categories": ["icon-library"],
+      "pricing": ["free", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "font-?awesome(?:[./-]([0-9.]+))?", "confidence": 70, "version": "$1" },
+        { "type": "domExists", "key": "[class*=\"fa-\"], .fa, .fas, .far, .fab", "confidence": 35 }
+      ]
+    },
+    {
+      "id": "intercom",
+      "name": "Intercom",
+      "description": "Customer messaging and live chat platform.",
+      "website": "https://www.intercom.com",
+      "categories": ["live-chat"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "widget\\.intercom\\.io", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Intercom", "pattern": ".*", "confidence": 75 },
+        { "type": "cookie", "key": "intercom-session-*", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "tawkto",
+      "name": "Tawk.to",
+      "description": "Free live chat widget.",
+      "website": "https://www.tawk.to",
+      "categories": ["live-chat"],
+      "pricing": ["free", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "embed\\.tawk\\.to", "confidence": 95 },
+        { "type": "jsGlobal", "key": "Tawk_API", "pattern": ".*", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "zoho-salesiq",
+      "name": "Zoho SalesIQ",
+      "description": "Live chat and visitor-tracking widget from Zoho.",
+      "website": "https://www.zoho.com/salesiq/",
+      "categories": ["live-chat"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "salesiq\\.zoho(?:hub)?\\.com/widget", "confidence": 90 },
+        { "type": "jsGlobal", "key": "$zoho.salesiq", "pattern": ".*", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "onetrust",
+      "name": "OneTrust",
+      "description": "Cookie-consent and privacy-management platform.",
+      "website": "https://www.onetrust.com",
+      "categories": ["consent-management"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.cookielaw\\.org|onetrust\\.com", "confidence": 90 },
+        { "type": "domExists", "key": "#onetrust-banner-sdk, #onetrust-consent-sdk", "confidence": 85 },
+        { "type": "jsGlobal", "key": "OnetrustActiveGroups", "pattern": ".*", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "cookiebot",
+      "name": "Cookiebot",
+      "description": "Cookie-consent management platform.",
+      "website": "https://www.cookiebot.com",
+      "categories": ["consent-management"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "consent\\.cookiebot\\.com", "confidence": 95 },
+        { "type": "jsGlobal", "key": "Cookiebot", "pattern": ".*", "confidence": 75 },
+        { "type": "cookie", "key": "CookieConsent", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "google-recaptcha",
+      "name": "Google reCAPTCHA",
+      "description": "Bot/abuse-mitigation CAPTCHA service.",
+      "website": "https://www.google.com/recaptcha/about/",
+      "categories": ["captcha"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "www\\.google\\.com/recaptcha/api\\.js|recaptcha/releases", "confidence": 90 },
+        { "type": "domExists", "key": ".g-recaptcha, [data-sitekey]", "confidence": 50 },
+        { "type": "jsGlobal", "key": "grecaptcha", "pattern": ".*", "confidence": 65 }
+      ]
+    },
+    {
+      "id": "hcaptcha",
+      "name": "hCaptcha",
+      "description": "Privacy-focused CAPTCHA service.",
+      "website": "https://www.hcaptcha.com",
+      "categories": ["captcha"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "hcaptcha\\.com/1/api\\.js", "confidence": 95 },
+        { "type": "domExists", "key": ".h-captcha", "confidence": 60 },
+        { "type": "jsGlobal", "key": "hcaptcha", "pattern": ".*", "confidence": 65 }
+      ]
+    }
+  ]
+}

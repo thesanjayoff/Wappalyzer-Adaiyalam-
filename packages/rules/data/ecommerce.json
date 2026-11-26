@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "shopify",
+      "name": "Shopify",
+      "description": "Hosted ecommerce platform.",
+      "website": "https://www.shopify.com",
+      "categories": ["ecommerce"],
+      "pricing": ["paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "header", "key": "x-shopid", "pattern": ".*", "confidence": 95 },
+        { "type": "header", "key": "x-shardid", "pattern": ".*", "confidence": 70 },
+        { "type": "jsGlobal", "key": "Shopify.shop", "pattern": ".*", "confidence": 95 },
+        { "type": "jsGlobal", "key": "Shopify.theme.name", "pattern": "(.*)", "confidence": 60, "version": "$1" },
+        { "type": "html", "pattern": "cdn\\.shopify\\.com", "confidence": 80 },
+        { "type": "cookie", "key": "_shopify_s", "pattern": ".*", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "magento",
+      "name": "Magento",
+      "description": "Open-source ecommerce platform written in PHP (now Adobe Commerce).",
+      "website": "https://business.adobe.com/products/magento/magento-commerce.html",
+      "categories": ["ecommerce"],
+      "pricing": ["free", "paid", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "cookie", "key": "mage-cache-sessid", "pattern": ".*", "confidence": 85 },
+        { "type": "cookie", "key": "form_key", "pattern": ".*", "confidence": 30 },
+        { "type": "html", "pattern": "Mage\\.Cookies", "confidence": 60 },
+        { "type": "html", "pattern": "static/(?:frontend|version[0-9]+)/[A-Za-z]+/[\\w-]+/[a-z]{2}_[A-Z]{2}", "confidence": 55 },
+        { "type": "header", "key": "x-magento-cache-debug", "pattern": ".*", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "bigcommerce",
+      "name": "BigCommerce",
+      "description": "Hosted ecommerce platform.",
+      "website": "https://www.bigcommerce.com",
+      "categories": ["ecommerce"],
+      "pricing": ["paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "html", "pattern": "cdn[0-9]*\\.bigcommerce\\.com", "confidence": 85 },
+        { "type": "jsGlobal", "key": "BCData", "pattern": ".*", "confidence": 85 },
+        { "type": "header", "key": "x-bc-storefront", "pattern": ".*", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "prestashop",
+      "name": "PrestaShop",
+      "description": "Open-source ecommerce platform written in PHP.",
+      "website": "https://www.prestashop.com",
+      "categories": ["ecommerce"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^PrestaShop", "confidence": 90 },
+        { "type": "cookie", "key": "PrestaShop-*", "pattern": ".*", "confidence": 60 },
+        { "type": "jsGlobal", "key": "prestashop.version", "pattern": "(.*)", "confidence": 90, "version": "$1" },
+        { "type": "html", "pattern": "/themes/[\\w-]+/assets/cache/", "confidence": 40 }
+      ]
+    }
+  ]
+}

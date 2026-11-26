@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "nginx",
+      "name": "nginx",
+      "description": "High-performance web server and reverse proxy.",
+      "website": "https://nginx.org",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "cpe": "cpe:2.3:a:nginx:nginx:{version}:*:*:*:*:*:*:*",
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^nginx(?:/([0-9.]+))?", "confidence": 90, "version": "$1" },
+        { "type": "header", "key": "x-served-by", "pattern": "nginx", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "apache-httpd",
+      "name": "Apache HTTP Server",
+      "description": "Open-source web server.",
+      "website": "https://httpd.apache.org",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "cpe": "cpe:2.3:a:apache:http_server:{version}:*:*:*:*:*:*:*",
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^Apache(?:/([0-9.]+))?", "confidence": 90, "version": "$1" }
+      ]
+    },
+    {
+      "id": "microsoft-iis",
+      "name": "Microsoft IIS",
+      "description": "Windows web server.",
+      "website": "https://www.iis.net",
+      "categories": ["web-server", "operating-system"],
+      "pricing": ["paid"],
+      "cpe": "cpe:2.3:a:microsoft:internet_information_services:{version}:*:*:*:*:*:*:*",
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^Microsoft-IIS(?:/([0-9.]+))?", "confidence": 95, "version": "$1" },
+        { "type": "header", "key": "x-aspnet-version", "pattern": "([0-9.]+)", "confidence": 40, "version": "$1" }
+      ]
+    },
+    {
+      "id": "php",
+      "name": "PHP",
+      "description": "Server-side scripting language.",
+      "website": "https://www.php.net",
+      "categories": ["programming-language"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "cpe": "cpe:2.3:a:php:php:{version}:*:*:*:*:*:*:*",
+      "evidence": [
+        { "type": "header", "key": "x-powered-by", "pattern": "PHP(?:/([0-9.]+))?", "confidence": 90, "version": "$1" },
+        { "type": "cookie", "key": "PHPSESSID", "pattern": ".*", "confidence": 50 },
+        { "type": "url", "pattern": "\\.php(?:$|[?#])", "confidence": 25 }
+      ]
+    },
+    {
+      "id": "aspnet",
+      "name": "ASP.NET",
+      "description": "Microsoft web application framework.",
+      "website": "https://dotnet.microsoft.com/apps/aspnet",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "evidence": [
+        { "type": "header", "key": "x-aspnet-version", "pattern": "([0-9.]+)", "confidence": 90, "version": "$1" },
+        { "type": "header", "key": "x-aspnetmvc-version", "pattern": "([0-9.]+)", "confidence": 85, "version": "$1" },
+        { "type": "cookie", "key": "ASP.NET_SessionId", "pattern": ".*", "confidence": 70 },
+        { "type": "cookie", "key": "__RequestVerificationToken", "pattern": ".*", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "expressjs",
+      "name": "Express",
+      "description": "Minimal Node.js web application framework.",
+      "website": "https://expressjs.com",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "nodejs", "confidence": 90 }],
+      "evidence": [
+        { "type": "header", "key": "x-powered-by", "pattern": "^Express$", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "description": "JavaScript runtime built on Chrome's V8 engine.",
+      "website": "https://nodejs.org",
+      "categories": ["programming-language"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "x-powered-by", "pattern": "Node\\.js", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "django",
+      "name": "Django",
+      "description": "Python web framework.",
+      "website": "https://www.djangoproject.com",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "python", "confidence": 90 }],
+      "evidence": [
+        { "type": "cookie", "key": "csrftoken", "pattern": ".*", "confidence": 60 },
+        { "type": "cookie", "key": "sessionid", "pattern": ".*", "confidence": 25 },
+        { "type": "html", "pattern": "csrfmiddlewaretoken", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "description": "General-purpose programming language.",
+      "website": "https://www.python.org",
+      "categories": ["programming-language"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "Python/([0-9.]+)", "confidence": 60, "version": "$1" },
+        { "type": "header", "key": "server", "pattern": "gunicorn|uvicorn|waitress", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "rubyonrails",
+      "name": "Ruby on Rails",
+      "description": "Ruby web application framework.",
+      "website": "https://rubyonrails.org",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "x-powered-by", "pattern": "Phusion Passenger", "confidence": 40 },
+        { "type": "cookie", "key": "_rails_session", "pattern": ".*", "confidence": 20 },
+        { "type": "html", "pattern": "csrf-param\"\\s+content=\"authenticity_token\"", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "laravel",
+      "name": "Laravel",
+      "description": "PHP web application framework.",
+      "website": "https://laravel.com",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "php", "confidence": 90 }],
+      "evidence": [
+        { "type": "cookie", "key": "laravel_session", "pattern": ".*", "confidence": 85 },
+        { "type": "cookie", "key": "XSRF-TOKEN", "pattern": ".*", "confidence": 30 }
+      ]
+    }
+  ]
+}

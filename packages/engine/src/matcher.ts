@@ -18,6 +18,14 @@ function extractCandidates(pattern: CompiledPattern, facts: SiteFacts): Candidat
     }
     case "cookie": {
       if (!pattern.key) return [];
+      // A trailing "*" means "name starts with" — several frameworks suffix
+      // cookie names with a per-install hash (Drupal's SESS<md5>,
+      // PrestaShop's PrestaShop-<hash>), so an exact-name match would never
+      // fire for them.
+      if (pattern.key.endsWith("*")) {
+        const prefix = pattern.key.slice(0, -1).toLowerCase();
+        return facts.cookies.filter((c) => c.name.toLowerCase().startsWith(prefix)).map((c) => ({ value: c.value }));
+      }
       const keyLower = pattern.key.toLowerCase();
       return facts.cookies.filter((c) => c.name.toLowerCase() === keyLower).map((c) => ({ value: c.value }));
     }

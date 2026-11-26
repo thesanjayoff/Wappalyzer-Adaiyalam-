@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "description": "CDN, DNS, and security (WAF/DDoS protection) provider.",
+      "website": "https://www.cloudflare.com",
+      "categories": ["cdn", "security"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^cloudflare$", "confidence": 90 },
+        { "type": "header", "key": "cf-ray", "pattern": ".*", "confidence": 90 },
+        { "type": "cookie", "key": "__cf_bm", "pattern": ".*", "confidence": 60 },
+        { "type": "dns", "key": "ns", "pattern": "\\.ns\\.cloudflare\\.com$", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "fastly",
+      "name": "Fastly",
+      "description": "Edge cloud platform / CDN.",
+      "website": "https://www.fastly.com",
+      "categories": ["cdn"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "x-served-by", "pattern": "cache-\\w+-fastly|fastly", "confidence": 80 },
+        { "type": "header", "key": "x-fastly-request-id", "pattern": ".*", "confidence": 90 },
+        { "type": "header", "key": "via", "pattern": "varnish", "confidence": 25 }
+      ]
+    },
+    {
+      "id": "akamai",
+      "name": "Akamai",
+      "description": "CDN and security edge platform.",
+      "website": "https://www.akamai.com",
+      "categories": ["cdn", "security"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "header", "key": "x-akamai-transformed", "pattern": ".*", "confidence": 90 },
+        { "type": "header", "key": "server", "pattern": "AkamaiGHost", "confidence": 90 },
+        { "type": "dns", "key": "cname", "pattern": "\\.akamaiedge\\.net$|\\.akamaitechnologies\\.com$", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "amazon-cloudfront",
+      "name": "Amazon CloudFront",
+      "description": "AWS content delivery network.",
+      "website": "https://aws.amazon.com/cloudfront/",
+      "categories": ["cdn"],
+      "pricing": ["paid"],
+      "implies": [{ "id": "aws", "confidence": 70 }],
+      "evidence": [
+        { "type": "header", "key": "x-amz-cf-id", "pattern": ".*", "confidence": 90 },
+        { "type": "header", "key": "via", "pattern": "CloudFront", "confidence": 85 },
+        { "type": "dns", "key": "cname", "pattern": "\\.cloudfront\\.net$", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "aws",
+      "name": "Amazon Web Services",
+      "description": "Cloud infrastructure provider.",
+      "website": "https://aws.amazon.com",
+      "categories": ["cloud"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^AmazonS3$", "confidence": 90 },
+        { "type": "header", "key": "x-amz-request-id", "pattern": ".*", "confidence": 70 },
+        { "type": "dns", "key": "cname", "pattern": "\\.s3[.-][\\w-]*\\.amazonaws\\.com$|\\.elb\\.amazonaws\\.com$", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "description": "Frontend cloud / hosting platform.",
+      "website": "https://vercel.com",
+      "categories": ["paas", "cdn"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "x-vercel-id", "pattern": ".*", "confidence": 95 },
+        { "type": "header", "key": "server", "pattern": "^Vercel$", "confidence": 90 },
+        { "type": "dns", "key": "cname", "pattern": "\\.vercel-dns\\.com$", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "description": "Static site and Jamstack hosting platform.",
+      "website": "https://www.netlify.com",
+      "categories": ["paas", "cdn"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "x-nf-request-id", "pattern": ".*", "confidence": 95 },
+        { "type": "header", "key": "server", "pattern": "Netlify", "confidence": 90 },
+        { "type": "dns", "key": "cname", "pattern": "\\.netlify\\.app$|\\.netlifyglobalcdn\\.com$", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "github-pages",
+      "name": "GitHub Pages",
+      "description": "Static site hosting for GitHub repositories.",
+      "website": "https://pages.github.com",
+      "categories": ["paas"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^GitHub\\.com$", "confidence": 95 },
+        { "type": "dns", "key": "cname", "pattern": "\\.github\\.io$|\\.githubusercontent\\.com$", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "google-cloud",
+      "name": "Google Cloud Platform",
+      "description": "Cloud infrastructure provider.",
+      "website": "https://cloud.google.com",
+      "categories": ["cloud"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^Google Frontend$|^gws$", "confidence": 60 },
+        { "type": "header", "key": "via", "pattern": "google", "confidence": 30 },
+        { "type": "dns", "key": "cname", "pattern": "\\.googlehosted\\.com$|\\.run\\.app$", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "microsoft-azure",
+      "name": "Microsoft Azure",
+      "description": "Cloud infrastructure provider.",
+      "website": "https://azure.microsoft.com",
+      "categories": ["cloud"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "dns", "key": "cname", "pattern": "\\.azurewebsites\\.net$|\\.azureedge\\.net$|\\.cloudapp\\.azure\\.com$", "confidence": 80 },
+        { "type": "header", "key": "x-azure-ref", "pattern": ".*", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "sucuri-firewall",
+      "name": "Sucuri Firewall",
+      "description": "Website firewall and security monitoring (WAF).",
+      "website": "https://sucuri.net",
+      "categories": ["security"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "header", "key": "x-sucuri-id", "pattern": ".*", "confidence": 95 },
+        { "type": "header", "key": "server", "pattern": "Sucuri", "confidence": 90 },
+        { "type": "header", "key": "x-sucuri-cache", "pattern": ".*", "confidence": 90 }
+      ]
+    }
+  ]
+}

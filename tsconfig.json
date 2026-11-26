@@ -5,6 +5,7 @@
     { "path": "packages/schema" },
     { "path": "packages/engine" },
     { "path": "packages/collectors" },
+    { "path": "packages/rules" },
     { "path": "packages/vuln-data" },
     { "path": "apps/cli" },
     { "path": "apps/api" }

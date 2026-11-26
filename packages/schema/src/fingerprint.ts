@@ -54,7 +54,8 @@ export const evidencePatternSchema = z.object({
   key: z.string().optional(),
   /** For domAttr: which attribute to read. */
   attr: z.string().optional(),
-  pattern: z.string(),
+  /** Unused (but still present for schema uniformity) for `domExists`, which matches on presence alone. */
+  pattern: z.string().default(""),
   flags: z.string().regex(/^[gimsuy]*$/).default("i"),
   confidence: confidenceSchema.default(100),
   version: z.string().optional(),

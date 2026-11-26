@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "description": "Online payment processing platform.",
+      "website": "https://stripe.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.stripe\\.com/v[0-9]+/", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Stripe", "pattern": ".*", "confidence": 60 },
+        { "type": "domExists", "key": "form[action*=\"stripe\"], iframe[src*=\"js.stripe.com\"]", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "paypal",
+      "name": "PayPal",
+      "description": "Online payment processing platform.",
+      "website": "https://www.paypal.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "paypal\\.com/sdk/js", "confidence": 90 },
+        { "type": "scriptSrc", "pattern": "paypalobjects\\.com", "confidence": 60 },
+        { "type": "jsGlobal", "key": "paypal", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "razorpay",
+      "name": "Razorpay",
+      "description": "Indian online payment gateway.",
+      "website": "https://razorpay.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "checkout\\.razorpay\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Razorpay", "pattern": ".*", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "payu",
+      "name": "PayU",
+      "description": "Online payment gateway popular in India and emerging markets.",
+      "website": "https://www.payu.in",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "secure\\.payu\\.in|checkout\\.payu\\.in|payu\\.money", "confidence": 85 },
+        { "type": "domExists", "key": "form[action*=\"payu.in\"]", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "paytm",
+      "name": "Paytm Payment Gateway",
+      "description": "Indian online payment gateway.",
+      "website": "https://business.paytm.com/paymentgateway",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "securegw(?:-stage)?\\.paytm\\.in", "confidence": 85 },
+        { "type": "domExists", "key": "form[action*=\"paytm.in\"]", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "cashfree",
+      "name": "Cashfree Payments",
+      "description": "Indian online payment gateway.",
+      "website": "https://www.cashfree.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "sdk\\.cashfree\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Cashfree", "pattern": ".*", "confidence": 70 }
+      ]
+    }
+  ]
+}

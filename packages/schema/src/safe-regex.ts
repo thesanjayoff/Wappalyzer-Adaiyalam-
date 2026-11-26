@@ -50,12 +50,12 @@ const ADVERSARIAL_INPUTS: readonly string[] = (() => {
 function runInWorker(
   pattern: string,
   flags: string,
-  input: string,
+  inputs: readonly string[],
   timeoutMs: number
 ): Promise<{ ok: boolean; timedOut?: boolean; error?: string }> {
   return new Promise((resolve) => {
     let settled = false;
-    const worker = new Worker(WORKER_PATH, { workerData: { pattern, flags, input } });
+    const worker = new Worker(WORKER_PATH, { workerData: { pattern, flags, inputs } });
     const timer = setTimeout(() => {
       if (settled) return;
       settled = true;
@@ -79,21 +79,21 @@ function runInWorker(
 }
 
 /**
- * Dynamic timing test: run the regex against a battery of adversarial
- * inputs in a disposable worker thread with a hard wall-clock timeout. If
- * any single match attempt doesn't return within the budget, we kill the
+ * Dynamic timing test: run the regex against a whole battery of
+ * adversarial inputs inside a single disposable worker thread (one worker
+ * spawn per pattern, not per input — spawning a worker per input made
+ * linting hundreds of rules impractically slow), with one hard wall-clock
+ * timeout for the entire batch. If it doesn't finish in time, we kill the
  * worker and call the pattern unsafe. This catches patterns the static
  * heuristic misses.
  */
-export async function checkRegexTiming(pattern: string, flags: string, timeoutMs = 75): Promise<SafeRegexCheckResult> {
-  for (const input of ADVERSARIAL_INPUTS) {
-    const result = await runInWorker(pattern, flags, input, timeoutMs);
-    if (!result.ok) {
-      return { safe: false, reason: result.error };
-    }
-    if (result.timedOut) {
-      return { safe: false, timedOutOn: input, reason: "regex exceeded the time budget on an adversarial input" };
-    }
+export async function checkRegexTiming(pattern: string, flags: string, timeoutMs = 200): Promise<SafeRegexCheckResult> {
+  const result = await runInWorker(pattern, flags, ADVERSARIAL_INPUTS, timeoutMs);
+  if (!result.ok) {
+    return { safe: false, reason: result.error };
+  }
+  if (result.timedOut) {
+    return { safe: false, reason: "regex exceeded the time budget against the adversarial input battery" };
   }
   return { safe: true };
 }

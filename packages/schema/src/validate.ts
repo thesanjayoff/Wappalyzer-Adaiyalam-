@@ -42,6 +42,11 @@ export function validateRuleShape(raw: unknown): { rule?: FingerprintRule; issue
   if (rule.evidence.every((e) => e.negative)) {
     issues.push({ ruleId: rule.id, level: "error", message: "a rule must have at least one non-negative pattern" });
   }
+  rule.evidence.forEach((e, i) => {
+    if (e.type !== "domExists" && e.pattern.trim() === "") {
+      issues.push({ ruleId: rule.id, level: "error", message: `evidence[${i}] (${e.type}) is missing a pattern` });
+    }
+  });
   if (rule.cpe && !rule.cpe.startsWith("cpe:2.3:")) {
     issues.push({ ruleId: rule.id, level: "warning", message: "cpe should be a CPE 2.3 formatted string" });
   }
@@ -56,6 +61,7 @@ export async function validateRuleDeep(raw: unknown): Promise<ValidationReport> 
 
   const allIssues = [...issues];
   for (const [index, pattern] of rule.evidence.entries()) {
+    if (pattern.type === "domExists") continue; // matches on presence only, no regex involved
     const result = await assertSafeRegex(pattern.pattern, pattern.flags);
     if (!result.safe) {
       allIssues.push({

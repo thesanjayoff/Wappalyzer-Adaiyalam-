@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "wordpress",
+      "name": "WordPress",
+      "description": "Open-source CMS and blogging platform written in PHP.",
+      "website": "https://wordpress.org",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "cpe": "cpe:2.3:a:wordpress:wordpress:{version}:*:*:*:*:*:*:*",
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^WordPress\\s*([0-9.]+)?", "confidence": 95, "version": "$1" },
+        { "type": "html", "pattern": "wp-content/(?:themes|plugins)/", "confidence": 70 },
+        { "type": "html", "pattern": "wp-includes/", "confidence": 60 },
+        { "type": "cookie", "key": "wordpress_logged_in", "pattern": ".*", "confidence": 80 },
+        { "type": "header", "key": "link", "pattern": "wp-json", "confidence": 55 },
+        { "type": "probe", "key": "/wp-login.php", "pattern": "^(200|401|403)\\n", "confidence": 40, "note": "public login page response code only, never submits credentials" }
+      ]
+    },
+    {
+      "id": "woocommerce",
+      "name": "WooCommerce",
+      "description": "Ecommerce plugin for WordPress.",
+      "website": "https://woocommerce.com",
+      "categories": ["ecommerce"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "wordpress", "confidence": 90 }],
+      "requires": ["wordpress"],
+      "evidence": [
+        { "type": "cookie", "key": "woocommerce_items_in_cart", "pattern": ".*", "confidence": 85 },
+        { "type": "cookie", "key": "woocommerce_cart_hash", "pattern": ".*", "confidence": 85 },
+        { "type": "scriptSrc", "pattern": "/wp-content/plugins/woocommerce/", "confidence": 90 },
+        { "type": "html", "pattern": "class=\"[^\"]*woocommerce[^\"]*\"", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "drupal",
+      "name": "Drupal",
+      "description": "Open-source CMS written in PHP.",
+      "website": "https://www.drupal.org",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "cpe": "cpe:2.3:a:drupal:drupal:{version}:*:*:*:*:*:*:*",
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Drupal\\s*([0-9]+)?", "confidence": 95, "version": "$1" },
+        { "type": "header", "key": "x-generator", "pattern": "Drupal\\s*([0-9.]+)?", "confidence": 90, "version": "$1" },
+        { "type": "html", "pattern": "sites/(?:default|all)/(?:modules|themes)/", "confidence": 65 },
+        { "type": "html", "pattern": "Drupal\\.settings", "confidence": 40 },
+        { "type": "cookie", "key": "SESS*", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "joomla",
+      "name": "Joomla",
+      "description": "Open-source CMS written in PHP.",
+      "website": "https://www.joomla.org",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "cpe": "cpe:2.3:a:joomla:joomla\\!:{version}:*:*:*:*:*:*:*",
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Joomla!?\\s*-?\\s*([0-9.]+)?", "confidence": 95, "version": "$1" },
+        { "type": "html", "pattern": "/media/jui/", "confidence": 60 },
+        { "type": "html", "pattern": "/templates/[a-z0-9_-]+/css", "confidence": 35 },
+        { "type": "cookie", "key": "joomla_user_state", "pattern": ".*", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "ghost",
+      "name": "Ghost",
+      "description": "Node.js-based publishing and blogging platform.",
+      "website": "https://ghost.org",
+      "categories": ["cms"],
+      "pricing": ["free", "freemium", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "nodejs", "confidence": 70 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Ghost\\s*([0-9.]+)?", "confidence": 95, "version": "$1" },
+        { "type": "html", "pattern": "/ghost/api/", "confidence": 70 },
+        { "type": "html", "pattern": "<link[^>]+href=\"[^\"]*/assets/built/screen\\.css", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "webflow",
+      "name": "Webflow",
+      "description": "Hosted visual website builder and CMS.",
+      "website": "https://webflow.com",
+      "categories": ["cms", "site-builder"],
+      "pricing": ["freemium", "paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "html", "pattern": "data-wf-site=\"[0-9a-f]+\"", "confidence": 95 },
+        { "type": "meta", "key": "generator", "pattern": "^Webflow", "confidence": 95 },
+        { "type": "scriptSrc", "pattern": "assets-global\\.website-files\\.com", "confidence": 85 },
+        { "type": "html", "pattern": "class=\"w-(?:nav|button|slider|form)\\b", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "wix",
+      "name": "Wix",
+      "description": "Hosted website builder.",
+      "website": "https://www.wix.com",
+      "categories": ["cms", "site-builder"],
+      "pricing": ["freemium", "paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Wix\\.com\\s*Website\\s*Builder", "confidence": 95 },
+        { "type": "html", "pattern": "static\\.wixstatic\\.com", "confidence": 80 },
+        { "type": "jsGlobal", "key": "wixBiSession", "pattern": ".*", "confidence": 85 },
+        { "type": "header", "key": "x-wix-request-id", "pattern": ".*", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "squarespace",
+      "name": "Squarespace",
+      "description": "Hosted website builder and ecommerce platform.",
+      "website": "https://www.squarespace.com",
+      "categories": ["cms", "site-builder"],
+      "pricing": ["paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "header", "key": "x-contextid", "pattern": ".*", "confidence": 70 },
+        { "type": "html", "pattern": "static1\\.squarespace\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Static.SQUARESPACE_CONTEXT", "pattern": ".*", "confidence": 90 },
+        { "type": "meta", "key": "generator", "pattern": "^Squarespace", "confidence": 95 }
+      ]
+    }
+  ]
+}
