@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { Command } from "commander";
 import { ruleFileSchema, validateRuleDeep, type FingerprintRule } from "@adaiyalam/schema";
 import { compileRule, emptyFacts, matchRule, type SiteFacts } from "@adaiyalam/engine";
-import { DATA_DIR, loadDefaultRuleset } from "@adaiyalam/rules";
+import { DATA_DIR, buildRulesetPackage, generateSigningKeyPair, loadDefaultRuleset, signRulesetPackage, verifyRulesetPackage, type SignedRulesetPackage } from "@adaiyalam/rules";
 import { buildRuleQualityReport } from "@adaiyalam/orchestrator";
 import { getScan, reportFalsePositive } from "@adaiyalam/store";
 
@@ -185,5 +185,48 @@ export function registerRuleCommand(program: Command): void {
       }
       const report = reportFalsePositive({ scanId, techId, url: scan.url, note: options.note });
       console.log(`Recorded false-positive report ${report.id} for "${techId}" on ${scan.url}.`);
+    });
+
+  rule
+    .command("keygen")
+    .description("Generate an Ed25519 keypair for signing distributable ruleset packages (see docs/RULE_SIGNING.md)")
+    .requiredOption("--out-dir <dir>", "directory to write private.pem and public.pem into")
+    .action((options) => {
+      const { privateKeyPem, publicKeyPem } = generateSigningKeyPair();
+      mkdirSync(options.outDir, { recursive: true });
+      writeFileSync(join(options.outDir, "private.pem"), privateKeyPem);
+      writeFileSync(join(options.outDir, "public.pem"), publicKeyPem);
+      console.log(`Wrote private.pem and public.pem to ${options.outDir}.`);
+      console.log("Keep private.pem secret and out of version control — anyone with it can sign ruleset packages as you. Distribute public.pem to whoever needs to verify your packages.");
+    });
+
+  rule
+    .command("package")
+    .description("Export the current ruleset as a signed, distributable JSON bundle")
+    .requiredOption("--sign-with <path>", "path to a private key PEM file (see 'rule keygen')")
+    .requiredOption("--out <path>", "output file path")
+    .action((options) => {
+      const privateKeyPem = readFileSync(options.signWith, "utf-8");
+      const pkg = buildRulesetPackage();
+      const signed = signRulesetPackage(pkg, privateKeyPem);
+      writeFileSync(options.out, JSON.stringify(signed, null, 2));
+      console.log(`Wrote a signed ruleset package (version ${pkg.version}, ${pkg.technologyCount} technologies) to ${options.out}.`);
+    });
+
+  rule
+    .command("verify-package")
+    .description("Verify a signed ruleset package's signature against a public key")
+    .argument("<file>", "path to a signed ruleset package JSON file")
+    .requiredOption("--public-key <path>", "path to the signer's public key PEM file")
+    .action((file: string, options) => {
+      const signed: SignedRulesetPackage = JSON.parse(readFileSync(file, "utf-8"));
+      const publicKeyPem = readFileSync(options.publicKey, "utf-8");
+      const ok = verifyRulesetPackage(signed, publicKeyPem);
+      if (ok) {
+        console.log(`OK — signature valid. Version ${signed.package.version}, ${signed.package.technologyCount} technologies, generated ${signed.package.generatedAt}.`);
+      } else {
+        console.error("FAILED — signature does not match this public key, or the package was modified after signing. Do not trust this ruleset.");
+        process.exitCode = 1;
+      }
     });
 }
