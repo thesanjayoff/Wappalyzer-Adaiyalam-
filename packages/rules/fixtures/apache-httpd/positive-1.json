@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "Apache server header with version",
+  "facts": {
+    "headers": {
+      "server": "Apache/2.4.58"
+    }
+  }
+}

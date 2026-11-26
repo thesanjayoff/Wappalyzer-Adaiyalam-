@@ -1,0 +1,5 @@
+{
+  "expect": "negative",
+  "description": "no WordPress signals",
+  "facts": {}
+}

@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "cookielaw.org CMP script tag",
+  "facts": {
+    "scriptSrcs": [
+      "https://cdn.cookielaw.org/consent/abc-123/otSDKStub.js"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "x-sucuri-id header",
+  "facts": {
+    "headers": {
+      "x-sucuri-id": "19603-...-1"
+    }
+  }
+}

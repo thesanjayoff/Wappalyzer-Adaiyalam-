@@ -1,0 +1,5 @@
+{
+  "expect": "negative",
+  "description": "no Stripe signals",
+  "facts": {}
+}

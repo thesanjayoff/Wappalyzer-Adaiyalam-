@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "Razorpay checkout script tag",
+  "facts": {
+    "scriptSrcs": [
+      "https://checkout.razorpay.com/v1/checkout.js"
+    ]
+  }
+}

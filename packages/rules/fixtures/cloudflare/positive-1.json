@@ -1,0 +1,10 @@
+{
+  "expect": "positive",
+  "description": "server header + cf-ray header",
+  "facts": {
+    "headers": {
+      "server": "cloudflare",
+      "cf-ray": "8a1b2c3d4e5f6789-SIN"
+    }
+  }
+}

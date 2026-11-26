@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "gtm.js script tag with container id",
+  "facts": {
+    "scriptSrcs": [
+      "https://www.googletagmanager.com/gtm.js?id=GTM-ABCD12"
+    ]
+  }
+}

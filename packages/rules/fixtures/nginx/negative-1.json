@@ -1,0 +1,9 @@
+{
+  "expect": "negative",
+  "description": "a different web server's Server header",
+  "facts": {
+    "headers": {
+      "server": "Apache/2.4.58"
+    }
+  }
+}

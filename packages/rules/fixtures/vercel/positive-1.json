@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "x-vercel-id header",
+  "facts": {
+    "headers": {
+      "x-vercel-id": "sin1::abcde-1700000000000-aaaaaaaaaaaa"
+    }
+  }
+}

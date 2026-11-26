@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "gtag.js script tag with GA4 measurement id",
+  "facts": {
+    "scriptSrcs": [
+      "https://www.googletagmanager.com/gtag/js?id=G-ABC1234XYZ"
+    ]
+  }
+}

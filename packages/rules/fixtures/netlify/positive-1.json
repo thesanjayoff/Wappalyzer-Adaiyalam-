@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "x-nf-request-id header",
+  "facts": {
+    "headers": {
+      "x-nf-request-id": "01hzyx8k2n3m4p5q6r7s8t9u0v"
+    }
+  }
+}

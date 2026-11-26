@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "X-Powered-By header with PHP version",
+  "facts": {
+    "headers": {
+      "x-powered-by": "PHP/8.2.4"
+    }
+  }
+}

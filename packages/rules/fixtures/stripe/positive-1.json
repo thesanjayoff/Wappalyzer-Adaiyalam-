@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "Stripe.js v3 script tag",
+  "facts": {
+    "scriptSrcs": [
+      "https://js.stripe.com/v3/"
+    ]
+  }
+}

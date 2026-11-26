@@ -1,0 +1,7 @@
+{
+  "expect": "negative",
+  "description": "no Tailwind CSS signals",
+  "facts": {
+    "cssText": []
+  }
+}

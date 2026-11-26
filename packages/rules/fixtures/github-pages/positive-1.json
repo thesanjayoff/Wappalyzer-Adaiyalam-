@@ -1,0 +1,16 @@
+{
+  "expect": "positive",
+  "description": "custom github.io subdomain with GitHub's Server header",
+  "facts": {
+    "requestedUrl": "https://someuser.github.io/project/",
+    "finalUrl": "https://someuser.github.io/project/",
+    "headers": {
+      "server": "GitHub.com"
+    },
+    "dns": {
+      "cname": [
+        "someuser.github.io"
+      ]
+    }
+  }
+}

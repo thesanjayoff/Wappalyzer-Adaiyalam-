@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "jquery CDN script with version in filename",
+  "facts": {
+    "scriptSrcs": [
+      "https://code.jquery.com/jquery-3.7.1.min.js"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "AmazonS3 server header",
+  "facts": {
+    "headers": {
+      "server": "AmazonS3"
+    }
+  }
+}

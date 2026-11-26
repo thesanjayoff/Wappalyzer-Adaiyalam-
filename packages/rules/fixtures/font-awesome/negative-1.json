@@ -1,0 +1,7 @@
+{
+  "expect": "negative",
+  "description": "empty HTML",
+  "facts": {
+    "html": "<html></html>"
+  }
+}

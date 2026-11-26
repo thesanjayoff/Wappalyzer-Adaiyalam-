@@ -1,0 +1,12 @@
+{
+  "expect": "positive",
+  "description": "generator meta tag",
+  "facts": {
+    "metaTags": [
+      {
+        "name": "generator",
+        "content": "Drupal 10"
+      }
+    ]
+  }
+}

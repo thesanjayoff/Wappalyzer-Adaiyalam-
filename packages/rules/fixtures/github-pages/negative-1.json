@@ -1,0 +1,11 @@
+{
+  "expect": "negative",
+  "description": "github.com's own homepage sends the same Server header but is NOT GitHub Pages — regression test for the false positive found by the evaluation harness",
+  "facts": {
+    "requestedUrl": "https://github.com/",
+    "finalUrl": "https://github.com/",
+    "headers": {
+      "server": "GitHub.com"
+    }
+  }
+}

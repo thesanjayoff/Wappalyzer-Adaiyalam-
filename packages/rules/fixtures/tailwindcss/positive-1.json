@@ -1,0 +1,9 @@
+{
+  "expect": "positive",
+  "description": "tailwindcss license banner comment in compiled CSS",
+  "facts": {
+    "cssText": [
+      "/*! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com */"
+    ]
+  }
+}
