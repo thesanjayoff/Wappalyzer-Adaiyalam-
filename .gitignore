@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+data/local/
+.adaiyalam/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+playwright-report/
+test-results/
+apps/dashboard/dist/
+apps/extension/dist/
