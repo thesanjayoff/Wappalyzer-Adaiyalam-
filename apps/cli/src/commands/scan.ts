@@ -50,7 +50,7 @@ function printHuman(report: Awaited<ReturnType<typeof scanUrlFast>>): void {
   printInsights(report.insights);
 }
 
-function printInsights(insights: Awaited<ReturnType<typeof scanUrlFast>>["insights"]): void {
+function buildInsightLines(insights: Awaited<ReturnType<typeof scanUrlFast>>["insights"]): string[] {
   const missingHeaders = insights.securityHeaders.filter((h) => !h.present);
   const lines: string[] = [];
 
@@ -66,10 +66,38 @@ function printInsights(insights: Awaited<ReturnType<typeof scanUrlFast>>["insigh
     const label = vuln.source === "osv" ? `${vuln.id} (${vuln.severity ?? "severity unknown"}${vuln.kev ? ", in CISA KEV" : ""})` : `${vuln.eolStatus}`;
     lines.push(`${vuln.name}${vuln.version ? ` v${vuln.version}` : ""}: ${label} — ${vuln.eolDetail ?? vuln.summary ?? ""}`);
   }
+  return lines;
+}
 
+function printInsights(insights: Awaited<ReturnType<typeof scanUrlFast>>["insights"]): void {
+  const lines = buildInsightLines(insights);
   if (lines.length === 0) return;
   console.log("\n  security & privacy notes (probabilistic hints, not confirmed findings):");
   for (const line of lines) console.log(`    - ${line}`);
+}
+
+async function maybePrintAiSummary(report: ScanReport, options: { aiSummary?: boolean; aiProvider?: string; aiApiKey?: string; aiModel?: string }): Promise<void> {
+  if (!options.aiSummary) return;
+  const { resolveAiSummaryConfig, summarize, AiSummaryConfigError } = await import("@adaiyalam/ai-summary");
+  try {
+    const config = resolveAiSummaryConfig({ provider: options.aiProvider as "anthropic" | "openai-compatible" | undefined, apiKey: options.aiApiKey, model: options.aiModel });
+    const summary = await summarize(
+      {
+        url: report.url,
+        detections: report.detections.map((d) => ({ name: d.name, categories: d.categories, confidence: d.confidence, version: d.version?.value })),
+        insightLines: buildInsightLines(report.insights),
+      },
+      config
+    );
+    console.log(`\n  AI summary (${config.provider}, generated from the scan above — may be wrong, verify anything that matters):`);
+    console.log(`  ${summary.replace(/\n/g, "\n  ")}`);
+  } catch (err) {
+    if (err instanceof AiSummaryConfigError) {
+      console.error(`\n  --ai-summary requested but not usable: ${err.message}`);
+    } else {
+      console.error(`\n  AI summary request failed: ${(err as Error).message}`);
+    }
+  }
 }
 
 export function registerScanCommand(program: Command): void {
@@ -85,6 +113,10 @@ export function registerScanCommand(program: Command): void {
     .option("--no-save", "do not persist this scan to local history")
     .option("--html <path>", "also write a self-contained HTML report to this path")
     .option("--csv <path>", "also write a CSV (one row per detected technology) to this path")
+    .option("--ai-summary", "off by default — generate a plain-language summary via an LLM provider (needs ADAIYALAM_AI_PROVIDER + ADAIYALAM_AI_API_KEY, or --ai-provider/--ai-api-key)")
+    .option("--ai-provider <provider>", "anthropic or openai-compatible")
+    .option("--ai-api-key <key>", "API key for the AI summary provider")
+    .option("--ai-model <model>", "override the AI summary provider's default model")
     .action(async (url: string, options) => {
       await ensureNoticeAcknowledged({ assumeYes: options.yes });
       const report = await scanUrlFast(url, {
@@ -99,6 +131,7 @@ export function registerScanCommand(program: Command): void {
         if (report.savedScanId) console.log(`  saved as scan ${report.savedScanId} (use "adaiyalam history" to list)`);
       }
       writeExtraFormats(report, options);
+      await maybePrintAiSummary(report, options);
     });
 
   program
@@ -113,6 +146,10 @@ export function registerScanCommand(program: Command): void {
     .option("--max-extra-pages <n>", "with --crawl, how many extra pages to visit at most", "2")
     .option("--html <path>", "also write a self-contained HTML report to this path")
     .option("--csv <path>", "also write a CSV (one row per detected technology) to this path")
+    .option("--ai-summary", "off by default — generate a plain-language summary via an LLM provider (needs ADAIYALAM_AI_PROVIDER + ADAIYALAM_AI_API_KEY, or --ai-provider/--ai-api-key)")
+    .option("--ai-provider <provider>", "anthropic or openai-compatible")
+    .option("--ai-api-key <key>", "API key for the AI summary provider")
+    .option("--ai-model <model>", "override the AI summary provider's default model")
     .action(async (url: string, options) => {
       await ensureNoticeAcknowledged({ assumeYes: options.yes });
       const { scanUrlBrowser, scanUrlBrowserCrawl } = await import("@adaiyalam/orchestrator");
@@ -134,6 +171,7 @@ export function registerScanCommand(program: Command): void {
         if (report.savedScanId) console.log(`  saved as scan ${report.savedScanId} (use "adaiyalam history" to list)`);
       }
       writeExtraFormats(report, options);
+      await maybePrintAiSummary(report, options);
     });
 
   program
