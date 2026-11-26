@@ -19,6 +19,7 @@
     { "path": "../../packages/evaluation" },
     { "path": "../../packages/app-analysis" },
     { "path": "../../packages/ai-summary" },
+    { "path": "../../packages/community-import" },
     { "path": "../api" }
   ]
 }

@@ -11,6 +11,7 @@
     "@adaiyalam/config": "*",
     "@adaiyalam/ai-summary": "*",
     "@adaiyalam/app-analysis": "*",
+    "@adaiyalam/community-import": "*",
     "@adaiyalam/engine": "*",
     "@adaiyalam/evaluation": "*",
     "@adaiyalam/orchestrator": "*",

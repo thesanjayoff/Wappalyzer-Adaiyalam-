@@ -10,6 +10,7 @@ import { registerBulkCommand } from "./commands/bulk.js";
 import { registerDiffCommand } from "./commands/diff.js";
 import { registerEvaluateCommand } from "./commands/evaluate.js";
 import { registerAppCommand } from "./commands/app.js";
+import { registerImportCommand } from "./commands/import.js";
 
 const program = new Command();
 program.name(APP_NAME.toLowerCase()).description(`${APP_NAME} — ${APP_TAGLINE}`).version("0.1.0");
@@ -23,6 +24,7 @@ registerBulkCommand(program);
 registerDiffCommand(program);
 registerEvaluateCommand(program);
 registerAppCommand(program);
+registerImportCommand(program);
 
 program.parseAsync(process.argv).catch((err: Error) => {
   console.error(`Error: ${err.message}`);
