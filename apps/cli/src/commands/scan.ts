@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { APP_NAME } from "@adaiyalam/config";
-import { scanUrlFast } from "../scan-runner.js";
+import { scanUrlFast } from "@adaiyalam/orchestrator";
 import { ensureNoticeAcknowledged } from "../notice.js";
 import { categoryName } from "@adaiyalam/schema";
 
@@ -47,16 +47,19 @@ export function registerScanCommand(program: Command): void {
     .option("--global-rps <n>", "max requests/second across all hosts", "5")
     .option("--host-delay-ms <n>", "minimum delay between requests to the same host", "1500")
     .option("--allow-private-hosts", "allow scanning localhost/private IPs (for your own dev servers)")
+    .option("--no-save", "do not persist this scan to local history")
     .action(async (url: string, options) => {
       await ensureNoticeAcknowledged({ assumeYes: options.yes });
       const report = await scanUrlFast(url, {
         rateLimit: { globalRps: Number(options.globalRps), perHostDelayMs: Number(options.hostDelayMs) },
         ssrf: { allowPrivateHosts: Boolean(options.allowPrivateHosts) },
+        save: options.save !== false,
       });
       if (options.json) {
         console.log(JSON.stringify(report, null, 2));
       } else {
         printHuman(report);
+        if (report.savedScanId) console.log(`  saved as scan ${report.savedScanId} (use "adaiyalam history" to list)`);
       }
     });
 }

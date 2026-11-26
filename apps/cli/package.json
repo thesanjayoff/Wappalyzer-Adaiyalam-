@@ -7,11 +7,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@adaiyalam/collectors": "*",
     "@adaiyalam/config": "*",
     "@adaiyalam/engine": "*",
+    "@adaiyalam/orchestrator": "*",
     "@adaiyalam/rules": "*",
     "@adaiyalam/schema": "*",
+    "@adaiyalam/store": "*",
     "commander": "^12.1.0"
   }
 }
