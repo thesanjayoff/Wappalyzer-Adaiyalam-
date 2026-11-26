@@ -11,6 +11,7 @@
     { "path": "packages/insights" },
     { "path": "packages/orchestrator" },
     { "path": "packages/evaluation" },
+    { "path": "packages/app-analysis" },
     { "path": "apps/api" },
     { "path": "apps/cli" },
     { "path": "apps/extension" }

@@ -1,0 +1,176 @@
+{
+  "technologies": [
+    {
+      "id": "firebase",
+      "name": "Firebase",
+      "description": "Google's mobile/web app development platform (analytics, messaging, database, auth).",
+      "website": "https://firebase.google.com",
+      "categories": ["backend"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/google/firebase/", "confidence": 90 }]
+    },
+    {
+      "id": "firebase-crashlytics",
+      "name": "Firebase Crashlytics",
+      "description": "Crash reporting for mobile apps.",
+      "website": "https://firebase.google.com/products/crashlytics",
+      "categories": ["crash-reporting"],
+      "implies": ["firebase"],
+      "evidence": [
+        { "type": "classPrefix", "pattern": "^com/google/firebase/crashlytics/", "confidence": 90 },
+        { "type": "classPrefix", "pattern": "^com/crashlytics/android/", "confidence": 85, "note": "legacy pre-Google-acquisition Crashlytics package name" }
+      ]
+    },
+    {
+      "id": "google-play-services",
+      "name": "Google Play Services",
+      "description": "Google's core set of APIs for Android apps (location, auth, etc.).",
+      "website": "https://developers.google.com/android/guides/overview",
+      "categories": ["backend"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/google/android/gms/", "confidence": 85 }]
+    },
+    {
+      "id": "google-admob",
+      "name": "Google AdMob",
+      "description": "Mobile advertising SDK.",
+      "website": "https://admob.google.com",
+      "categories": ["advertising"],
+      "implies": ["google-play-services"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/google/android/gms/ads/", "confidence": 85 }]
+    },
+    {
+      "id": "google-maps-android",
+      "name": "Google Maps (Android SDK)",
+      "description": "Embeddable maps SDK for Android.",
+      "website": "https://developers.google.com/maps/documentation/android-sdk",
+      "categories": ["miscellaneous"],
+      "implies": ["google-play-services"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/google/android/gms/maps/", "confidence": 85 }]
+    },
+    {
+      "id": "facebook-android-sdk",
+      "name": "Facebook SDK for Android",
+      "description": "Meta's SDK for Facebook login, sharing, and analytics in Android apps.",
+      "website": "https://developers.facebook.com/docs/android/",
+      "categories": ["social", "analytics"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/facebook/", "confidence": 80 }]
+    },
+    {
+      "id": "razorpay-checkout-android",
+      "name": "Razorpay Checkout (Android SDK)",
+      "description": "Indian payment gateway's native Android checkout SDK.",
+      "website": "https://razorpay.com/docs/payments/payment-gateway/android-integration/",
+      "categories": ["payment"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/razorpay/", "confidence": 90 }]
+    },
+    {
+      "id": "stripe-android",
+      "name": "Stripe Android SDK",
+      "description": "Stripe's native Android payments SDK.",
+      "website": "https://github.com/stripe/stripe-android",
+      "categories": ["payment"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/stripe/android/", "confidence": 90 }]
+    },
+    {
+      "id": "onesignal",
+      "name": "OneSignal",
+      "description": "Push notification and in-app messaging SDK.",
+      "website": "https://onesignal.com",
+      "categories": ["push-notifications"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/onesignal/", "confidence": 90 }]
+    },
+    {
+      "id": "branch-android-sdk",
+      "name": "Branch",
+      "description": "Mobile attribution and deep-linking SDK.",
+      "website": "https://www.branch.io",
+      "categories": ["attribution"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^io/branch/referral/", "confidence": 90 }]
+    },
+    {
+      "id": "appsflyer",
+      "name": "AppsFlyer",
+      "description": "Mobile attribution and marketing analytics SDK.",
+      "website": "https://www.appsflyer.com",
+      "categories": ["attribution"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/appsflyer/", "confidence": 90 }]
+    },
+    {
+      "id": "clevertap-android-sdk",
+      "name": "CleverTap",
+      "description": "Indian customer engagement and analytics SDK.",
+      "website": "https://clevertap.com",
+      "categories": ["analytics"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/clevertap/", "confidence": 90 }]
+    },
+    {
+      "id": "moengage-android-sdk",
+      "name": "MoEngage",
+      "description": "Indian marketing automation and analytics SDK.",
+      "website": "https://www.moengage.com",
+      "categories": ["analytics"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/moengage/", "confidence": 90 }]
+    },
+    {
+      "id": "flutter",
+      "name": "Flutter",
+      "description": "Google's cross-platform UI toolkit.",
+      "website": "https://flutter.dev",
+      "categories": ["cross-platform-framework"],
+      "evidence": [
+        { "type": "nativeLib", "pattern": "libflutter\\.so$", "confidence": 95 },
+        { "type": "classPrefix", "pattern": "^io/flutter/", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "react-native",
+      "name": "React Native",
+      "description": "Meta's cross-platform JS-to-native UI framework.",
+      "website": "https://reactnative.dev",
+      "categories": ["cross-platform-framework"],
+      "evidence": [
+        { "type": "nativeLib", "pattern": "libreactnativejni\\.so$", "confidence": 90 },
+        { "type": "string", "pattern": "index\\.android\\.bundle", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "retrofit",
+      "name": "Retrofit",
+      "description": "Type-safe HTTP client for Android/Java, by Square.",
+      "website": "https://square.github.io/retrofit/",
+      "categories": ["miscellaneous"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^retrofit2/", "confidence": 70 }]
+    },
+    {
+      "id": "okhttp",
+      "name": "OkHttp",
+      "description": "HTTP client library for Android/Java, by Square.",
+      "website": "https://square.github.io/okhttp/",
+      "categories": ["miscellaneous"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^okhttp3/", "confidence": 60 }]
+    },
+    {
+      "id": "glide",
+      "name": "Glide",
+      "description": "Image loading and caching library for Android.",
+      "website": "https://github.com/bumptech/glide",
+      "categories": ["miscellaneous"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/bumptech/glide/", "confidence": 70 }]
+    },
+    {
+      "id": "picasso",
+      "name": "Picasso",
+      "description": "Image loading library for Android, by Square.",
+      "website": "https://square.github.io/picasso/",
+      "categories": ["miscellaneous"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/squareup/picasso/", "confidence": 70 }]
+    },
+    {
+      "id": "gson",
+      "name": "Gson",
+      "description": "Java/Android JSON serialization library, by Google.",
+      "website": "https://github.com/google/gson",
+      "categories": ["miscellaneous"],
+      "evidence": [{ "type": "classPrefix", "pattern": "^com/google/gson/", "confidence": 50, "note": "very widely used transitively, so a lower confidence than a vendor-specific SDK" }]
+    }
+  ]
+}

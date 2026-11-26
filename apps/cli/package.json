@@ -9,6 +9,7 @@
   "dependencies": {
     "@adaiyalam/api": "*",
     "@adaiyalam/config": "*",
+    "@adaiyalam/app-analysis": "*",
     "@adaiyalam/engine": "*",
     "@adaiyalam/evaluation": "*",
     "@adaiyalam/orchestrator": "*",
