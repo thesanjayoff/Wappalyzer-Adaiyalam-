@@ -56,6 +56,9 @@ export const PATHS = {
   get vulnData() {
     return path.join(this.home, "vuln-data");
   },
+  get bulkJobs() {
+    return path.join(this.home, "bulk-jobs");
+  },
   get logs() {
     return path.join(this.home, "logs");
   },
