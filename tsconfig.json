@@ -10,6 +10,7 @@
     { "path": "packages/vuln-data" },
     { "path": "packages/insights" },
     { "path": "packages/orchestrator" },
+    { "path": "packages/evaluation" },
     { "path": "apps/api" },
     { "path": "apps/cli" },
     { "path": "apps/extension" }

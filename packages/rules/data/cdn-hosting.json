@@ -102,8 +102,9 @@
       "categories": ["paas"],
       "pricing": ["free"],
       "evidence": [
-        { "type": "header", "key": "server", "pattern": "^GitHub\\.com$", "confidence": 95 },
-        { "type": "dns", "key": "cname", "pattern": "\\.github\\.io$|\\.githubusercontent\\.com$", "confidence": 70 }
+        { "type": "header", "key": "server", "pattern": "^GitHub\\.com$", "confidence": 40 },
+        { "type": "dns", "key": "cname", "pattern": "\\.github\\.io$|\\.githubusercontent\\.com$", "confidence": 70 },
+        { "type": "url", "pattern": "^https?://(www\\.)?github\\.com(/|$)", "confidence": 100, "negative": true }
       ]
     },
     {

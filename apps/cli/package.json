@@ -10,6 +10,7 @@
     "@adaiyalam/api": "*",
     "@adaiyalam/config": "*",
     "@adaiyalam/engine": "*",
+    "@adaiyalam/evaluation": "*",
     "@adaiyalam/orchestrator": "*",
     "@adaiyalam/rules": "*",
     "@adaiyalam/schema": "*",

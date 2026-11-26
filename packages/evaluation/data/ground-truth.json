@@ -1,0 +1,58 @@
+{
+  "verifiedAsOf": "2026-11-26",
+  "method": "Each entry was verified by hand on the date above: fetching the page/headers directly (curl) and reading an unambiguous first-party signal (a generator meta tag, an X-Powered-By/Server header, a vendor-specific response header, or a vendor-specific script/asset path in the raw HTML). This is a small starter set, not the spec's full ≥300-site target — see the evaluation README section for why, and how to extend it.",
+  "sites": [
+    {
+      "url": "https://wordpress.org",
+      "expectedTechIds": ["wordpress", "nginx"],
+      "evidence": "meta generator = 'WordPress 7.3-alpha-...'; Server: nginx"
+    },
+    {
+      "url": "https://stackoverflow.com",
+      "expectedTechIds": ["cloudflare"],
+      "evidence": "Server: cloudflare; CF-Ray header present"
+    },
+    {
+      "url": "https://www.allbirds.com",
+      "expectedTechIds": ["shopify", "cloudflare"],
+      "evidence": "powered-by: Shopify header; cdn.shopify.com + Shopify.theme in HTML; Server: cloudflare"
+    },
+    {
+      "url": "https://www.drupal.org",
+      "expectedTechIds": ["drupal"],
+      "evidence": "X-Drupal-Cache response header; Server: Apache"
+    },
+    {
+      "url": "https://www.joomla.org",
+      "expectedTechIds": ["joomla", "cloudflare"],
+      "evidence": "meta generator = 'Joomla! - Open Source Content Management'; Server: cloudflare"
+    },
+    {
+      "url": "https://react.dev",
+      "expectedTechIds": ["nextjs", "reactjs"],
+      "evidence": "__NEXT_DATA__ script tag and /_next/static/ asset paths present in the raw HTML"
+    },
+    {
+      "url": "https://woocommerce.com",
+      "expectedTechIds": ["wordpress", "woocommerce"],
+      "evidence": "X-Powered-By: WordPress VIP header; 'woocommerce'/'wp-content' strings in the raw HTML"
+    }
+  ],
+  "negativeControls": [
+    {
+      "url": "https://example.com",
+      "mustNotDetect": ["wordpress", "shopify", "drupal", "joomla", "woocommerce"],
+      "evidence": "Minimal static page with no CMS of any kind"
+    },
+    {
+      "url": "https://example.net",
+      "mustNotDetect": ["wordpress", "shopify", "drupal", "joomla", "woocommerce"],
+      "evidence": "Minimal static page with no CMS of any kind"
+    },
+    {
+      "url": "https://github.com",
+      "mustNotDetect": ["wordpress", "shopify", "drupal", "joomla", "woocommerce", "cloudflare"],
+      "evidence": "Server: github.com (custom infra, not fronted by Cloudflare, no CMS)"
+    }
+  ]
+}
