@@ -1,0 +1,533 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "heroku",
+      "name": "Heroku",
+      "description": "Platform-as-a-service for deploying and running applications.",
+      "website": "https://www.heroku.com",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "dns", "key": "cname", "pattern": "\\.herokuapp\\.com$|\\.herokudns\\.com$", "confidence": 85 },
+        { "type": "header", "key": "via", "pattern": "heroku-router", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "render",
+      "name": "Render",
+      "description": "Cloud platform for hosting apps, static sites, and databases.",
+      "website": "https://render.com",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "dns", "key": "cname", "pattern": "\\.onrender\\.com$", "confidence": 80 },
+        { "type": "header", "key": "x-render-origin-server", "pattern": ".*", "confidence": 55, "note": "Moderately confident of this exact header name; treat as corroborating, not definitive." }
+      ]
+    },
+    {
+      "id": "railway",
+      "name": "Railway",
+      "description": "Cloud platform for deploying and hosting applications.",
+      "website": "https://railway.app",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "dns", "key": "cname", "pattern": "\\.up\\.railway\\.app$|\\.railway\\.app$", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "digitalocean-app-platform",
+      "name": "DigitalOcean App Platform",
+      "description": "DigitalOcean's platform-as-a-service for deploying applications.",
+      "website": "https://www.digitalocean.com/products/app-platform",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "dns", "key": "cname", "pattern": "\\.ondigitalocean\\.app$", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "fly-io",
+      "name": "Fly.io",
+      "description": "Platform for deploying applications close to users on globally distributed infrastructure.",
+      "website": "https://fly.io",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "fly-request-id", "pattern": ".*", "confidence": 80 },
+        { "type": "dns", "key": "cname", "pattern": "\\.fly\\.dev$", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "firebase-hosting",
+      "name": "Firebase Hosting",
+      "description": "Google's static web hosting platform for Firebase projects.",
+      "website": "https://firebase.google.com/products/hosting",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "dns", "key": "cname", "pattern": "\\.web\\.app$|\\.firebaseapp\\.com$", "confidence": 80 },
+        { "type": "header", "key": "server", "pattern": "Firebase", "confidence": 45, "note": "Current Firebase Hosting responses more often show a generic Google Frontend server header; this fires only on the older, more specific value." }
+      ]
+    },
+    {
+      "id": "imperva",
+      "name": "Imperva",
+      "description": "Web application firewall and bot mitigation service (formerly Incapsula).",
+      "website": "https://www.imperva.com",
+      "categories": ["security"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "cookie", "key": "incap_ses_*", "pattern": ".*", "confidence": 80 },
+        { "type": "cookie", "key": "visid_incap_*", "pattern": ".*", "confidence": 80 },
+        { "type": "header", "key": "x-iinfo", "pattern": ".*", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "f5-big-ip",
+      "name": "F5 BIG-IP",
+      "description": "Application delivery controller / load balancer, often paired with WAF features.",
+      "website": "https://www.f5.com/products/big-ip-services",
+      "categories": ["security"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "cookie", "key": "BIGipServer*", "pattern": ".*", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "description": "Application error and performance monitoring.",
+      "website": "https://sentry.io",
+      "categories": ["miscellaneous"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "browser\\.sentry-cdn\\.com", "confidence": 85 },
+        { "type": "jsGlobal", "key": "Sentry", "pattern": ".*", "confidence": 45, "note": "\"Sentry\" is a common enough identifier that this alone is weak; relies on corroboration from the script-domain signal." }
+      ]
+    },
+    {
+      "id": "new-relic-browser",
+      "name": "New Relic Browser",
+      "description": "Browser-side real-user-monitoring agent from New Relic.",
+      "website": "https://newrelic.com/platform/browser-monitoring",
+      "categories": ["miscellaneous"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js-agent\\.newrelic\\.com", "confidence": 85 },
+        { "type": "jsGlobal", "key": "NREUM", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "datadog-rum",
+      "name": "Datadog RUM",
+      "description": "Browser-side real-user-monitoring agent from Datadog.",
+      "website": "https://www.datadoghq.com/product/real-user-monitoring/",
+      "categories": ["miscellaneous"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "datadoghq-browser-agent\\.com", "confidence": 85 },
+        { "type": "jsGlobal", "key": "DD_RUM", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "bugsnag",
+      "name": "Bugsnag",
+      "description": "Application error monitoring and crash reporting.",
+      "website": "https://www.bugsnag.com",
+      "categories": ["miscellaneous"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "jsGlobal", "key": "Bugsnag", "pattern": ".*", "confidence": 55, "note": "No confidently-recalled unique script/CDN domain for Bugsnag's loader — relying on the JS global alone (browser mode only)." }
+      ]
+    },
+    {
+      "id": "rollbar",
+      "name": "Rollbar",
+      "description": "Real-time error monitoring and alerting.",
+      "website": "https://rollbar.com",
+      "categories": ["miscellaneous"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "jsGlobal", "key": "Rollbar", "pattern": ".*", "confidence": 55, "note": "No confidently-recalled unique script/CDN domain for Rollbar's loader — relying on the JS global alone (browser mode only)." }
+      ]
+    },
+    {
+      "id": "logrocket",
+      "name": "LogRocket",
+      "description": "Session replay and error/performance monitoring.",
+      "website": "https://logrocket.com",
+      "categories": ["session-replay"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "lr-ingest\\.(io|com)", "confidence": 50, "note": "Moderately confident of this ingest-domain spelling; treat as corroborating." },
+        { "type": "jsGlobal", "key": "LogRocket", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "trustarc",
+      "name": "TrustArc",
+      "description": "Cookie and privacy consent management platform.",
+      "website": "https://trustarc.com",
+      "categories": ["consent-management"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "consent\\.trustarc\\.com", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "quantcast-choice",
+      "name": "Quantcast Choice",
+      "description": "Consent management platform (CMP) for cookie/privacy consent.",
+      "website": "https://www.quantcast.com/products/choice-consent-management-platform/",
+      "categories": ["consent-management"],
+      "pricing": ["free", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "quantcast\\.mgr\\.consensu\\.org|cmp\\.quantcast\\.com", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "didomi",
+      "name": "Didomi",
+      "description": "Consent management platform (CMP) for cookie/privacy consent.",
+      "website": "https://www.didomi.io",
+      "categories": ["consent-management"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "sdk\\.privacy-center\\.org", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "osano",
+      "name": "Osano",
+      "description": "Consent management platform (CMP) for cookie/privacy consent.",
+      "website": "https://www.osano.com",
+      "categories": ["consent-management"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cmp\\.osano\\.com", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "usercentrics",
+      "name": "Usercentrics",
+      "description": "Consent management platform (CMP) for cookie/privacy consent.",
+      "website": "https://usercentrics.com",
+      "categories": ["consent-management"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "app\\.usercentrics\\.eu|api\\.usercentrics\\.eu", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "youtube-embed",
+      "name": "YouTube",
+      "description": "Embedded YouTube video player.",
+      "website": "https://www.youtube.com",
+      "categories": ["video"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "www\\.youtube\\.com/iframe_api", "confidence": 70 },
+        { "type": "html", "pattern": "youtube(-nocookie)?\\.com/embed/", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "vimeo",
+      "name": "Vimeo",
+      "description": "Video hosting and embedded player.",
+      "website": "https://vimeo.com",
+      "categories": ["video"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "player\\.vimeo\\.com/api/player\\.js", "confidence": 85 },
+        { "type": "html", "pattern": "player\\.vimeo\\.com/video/", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "wistia",
+      "name": "Wistia",
+      "description": "Video hosting platform for marketing and business video.",
+      "website": "https://wistia.com",
+      "categories": ["video"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "fast\\.wistia\\.(com|net)", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "jw-player",
+      "name": "JW Player",
+      "description": "Video player platform and streaming infrastructure.",
+      "website": "https://www.jwplayer.com",
+      "categories": ["video"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "jwpcdn\\.com", "confidence": 75 },
+        { "type": "jsGlobal", "key": "jwplayer", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "brightcove",
+      "name": "Brightcove",
+      "description": "Enterprise video hosting and streaming platform.",
+      "website": "https://www.brightcove.com",
+      "categories": ["video"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "players\\.brightcove\\.net", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "google-maps",
+      "name": "Google Maps",
+      "description": "Embedded interactive maps via the Google Maps JavaScript API.",
+      "website": "https://developers.google.com/maps",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "maps\\.googleapis\\.com/maps/api/js", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "mapbox",
+      "name": "Mapbox",
+      "description": "Embedded interactive maps via the Mapbox GL JS library.",
+      "website": "https://www.mapbox.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "api\\.mapbox\\.com/mapbox-gl-js", "confidence": 80 },
+        { "type": "css", "pattern": "mapboxgl-map", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "leaflet",
+      "name": "Leaflet",
+      "description": "Open-source JavaScript library for interactive maps.",
+      "website": "https://leafletjs.com",
+      "categories": ["widget", "js-library"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "css", "pattern": "leaflet-(container|pane|tile)", "confidence": 50 },
+        { "type": "domExists", "key": ".leaflet-container", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "algolia-docsearch",
+      "name": "Algolia DocSearch",
+      "description": "Hosted documentation search widget powered by Algolia.",
+      "website": "https://docsearch.algolia.com",
+      "categories": ["search"],
+      "pricing": ["free", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "docsearch", "confidence": 45, "note": "Matches 'docsearch' anywhere in a script path (e.g. an npm package name on a generic CDN) — could rarely false-positive on an unrelated file; corroborated by the CSS class signal below." },
+        { "type": "css", "pattern": "DocSearch-", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "google-custom-search",
+      "name": "Google Custom Search Engine",
+      "description": "Embedded site search powered by Google's Custom Search Engine.",
+      "website": "https://programmablesearchengine.google.com",
+      "categories": ["search"],
+      "pricing": ["free", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cse\\.google\\.com/cse\\.js", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "facebook-sdk",
+      "name": "Facebook SDK for JavaScript",
+      "description": "Facebook's SDK for social plugins (Like buttons, comments, login).",
+      "website": "https://developers.facebook.com/docs/javascript",
+      "categories": ["social"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "connect\\.facebook\\.net", "confidence": 85 },
+        { "type": "domExists", "key": "#fb-root", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "twitter-widgets",
+      "name": "Twitter/X Widgets",
+      "description": "Embedded tweets, timelines, and follow buttons.",
+      "website": "https://developer.twitter.com/en/docs/twitter-for-websites",
+      "categories": ["social"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "platform\\.twitter\\.com/widgets\\.js", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "instagram-embed",
+      "name": "Instagram Embed",
+      "description": "Embedded Instagram posts via Instagram's embed script.",
+      "website": "https://developers.facebook.com/docs/instagram",
+      "categories": ["social"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "www\\.instagram\\.com/embed\\.js", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "linkedin-badge",
+      "name": "LinkedIn Badge",
+      "description": "Embedded LinkedIn profile/company badges.",
+      "website": "https://www.linkedin.com",
+      "categories": ["social"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "platform\\.linkedin\\.com/badges/js/profile\\.js", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "varnish",
+      "name": "Varnish",
+      "description": "Open-source HTTP accelerator / reverse proxy cache.",
+      "website": "https://varnish-cache.org",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "x-varnish", "pattern": ".*", "confidence": 80 },
+        { "type": "header", "key": "via", "pattern": "varnish", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "haproxy",
+      "name": "HAProxy",
+      "description": "Open-source TCP/HTTP load balancer and reverse proxy.",
+      "website": "https://www.haproxy.org",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^HAProxy$", "confidence": 70, "note": "HAProxy does not set a Server header by default — this fires only when an operator explicitly configures it to advertise itself." }
+      ]
+    },
+    {
+      "id": "litespeed",
+      "name": "LiteSpeed Web Server",
+      "description": "High-performance commercial web server, often used with LiteSpeed Cache.",
+      "website": "https://www.litespeedtech.com",
+      "categories": ["web-server"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^LiteSpeed$", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "caddy",
+      "name": "Caddy",
+      "description": "Open-source web server with automatic HTTPS.",
+      "website": "https://caddyserver.com",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^Caddy$", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "openresty",
+      "name": "OpenResty",
+      "description": "Nginx-based web platform bundling LuaJIT.",
+      "website": "https://openresty.org",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^openresty", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "envoy",
+      "name": "Envoy Proxy",
+      "description": "Open-source edge and service proxy, commonly used in Kubernetes/service-mesh setups.",
+      "website": "https://www.envoyproxy.io",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^envoy$", "confidence": 85 },
+        { "type": "header", "key": "x-envoy-upstream-service-time", "pattern": ".*", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "apache-tomcat",
+      "name": "Apache Tomcat",
+      "description": "Open-source Java servlet container and web server.",
+      "website": "https://tomcat.apache.org",
+      "categories": ["web-server"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "Apache-Coyote", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "flask",
+      "name": "Flask",
+      "description": "Python micro web framework.",
+      "website": "https://flask.palletsprojects.com",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "python", "confidence": 80 }],
+      "evidence": [
+        { "type": "header", "key": "server", "pattern": "^Werkzeug", "confidence": 80, "note": "Only fires when Flask's built-in Werkzeug dev server is exposed directly — production deployments behind gunicorn/uWSGI/nginx won't show this." }
+      ]
+    },
+    {
+      "id": "fastapi",
+      "name": "FastAPI",
+      "description": "Python web framework for building APIs.",
+      "website": "https://fastapi.tiangolo.com",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "python", "confidence": 70 }],
+      "evidence": [
+        { "type": "html", "pattern": "FastAPI", "confidence": 30, "note": "Low-confidence literal-string match (e.g. in an auto-generated Swagger UI title); no stronger passive signal recalled." }
+      ]
+    },
+    {
+      "id": "spring-boot",
+      "name": "Spring Boot",
+      "description": "Java application framework.",
+      "website": "https://spring.io/projects/spring-boot",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "html", "pattern": "Whitelabel Error Page", "confidence": 85, "note": "Only visible on Spring Boot's default error page (e.g. a 404/500 that wasn't given a custom error page) — low recall but reliable when it appears." }
+      ]
+    },
+    {
+      "id": "symfony",
+      "name": "Symfony",
+      "description": "PHP web application framework.",
+      "website": "https://symfony.com",
+      "categories": ["backend-framework"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "php", "confidence": 80 }],
+      "evidence": [
+        { "type": "header", "key": "x-debug-token", "pattern": ".*", "confidence": 85, "note": "Only present when Symfony's web debug toolbar is enabled, which is normally development-only." }
+      ]
+    },
+    {
+      "id": "deno-deploy",
+      "name": "Deno Deploy",
+      "description": "Edge hosting platform for Deno applications.",
+      "website": "https://deno.com/deploy",
+      "categories": ["paas"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "header", "key": "x-deno-ray", "pattern": ".*", "confidence": 80 }
+      ]
+    }
+  ]
+}

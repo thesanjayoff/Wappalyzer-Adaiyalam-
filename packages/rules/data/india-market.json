@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "bigrock-hosting",
+      "name": "BigRock",
+      "description": "Indian domain registrar and web hosting provider (Newfold Digital / Endurance brand).",
+      "website": "https://www.bigrock.in",
+      "categories": ["dns", "paas"],
+      "pricing": ["paid"],
+      "notes": "Nameserver pattern is a commonly observed default for BigRock customers; confidence kept moderate since many customers switch to custom nameservers.",
+      "evidence": [
+        { "type": "dns", "key": "ns", "pattern": "\\.bigrock\\.in$", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "resellerclub-hosting",
+      "name": "ResellerClub",
+      "description": "Indian-origin reseller web hosting and domain registration platform (Newfold Digital / Endurance brand).",
+      "website": "https://www.resellerclub.com",
+      "categories": ["dns", "paas"],
+      "pricing": ["paid"],
+      "notes": "Nameserver pattern is a commonly observed default for ResellerClub-provisioned domains; confidence kept moderate since many customers switch to custom nameservers.",
+      "evidence": [
+        { "type": "dns", "key": "ns", "pattern": "\\.reseller-club\\.com$", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "zoho-pagesense",
+      "name": "Zoho PageSense",
+      "description": "Website analytics, heatmap, and A/B testing widget from Zoho.",
+      "website": "https://www.zoho.com/pagesense/",
+      "categories": ["analytics", "session-replay"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "pagesense-collect\\.zoho\\.(com|in|eu)", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "zoho-forms",
+      "name": "Zoho Forms",
+      "description": "Online form builder and embeddable form widget from Zoho.",
+      "website": "https://www.zoho.com/forms/",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "notes": "Hostname pattern recalled with moderate confidence; some embeds may use other Zoho domains not covered here.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "forms\\.zoho(static)?\\.(com|in|eu)", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "freshchat",
+      "name": "Freshchat",
+      "description": "Live chat and in-app messaging widget by Freshworks.",
+      "website": "https://www.freshworks.com/live-chat-software/",
+      "categories": ["live-chat"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "wchat\\.freshchat\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "fcWidget", "pattern": ".*", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "freshdesk",
+      "name": "Freshdesk",
+      "description": "Help desk and customer support widget by Freshworks.",
+      "website": "https://www.freshworks.com/helpdesk-software/",
+      "categories": ["live-chat", "widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "widget\\.freshworks\\.com", "confidence": 85 },
+        { "type": "jsGlobal", "key": "FreshworksWidget", "pattern": ".*", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "chargebee",
+      "name": "Chargebee",
+      "description": "Subscription billing and revenue management platform.",
+      "website": "https://www.chargebee.com",
+      "categories": ["payment"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.chargebee\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Chargebee", "pattern": ".*", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "instamojo",
+      "name": "Instamojo",
+      "description": "Indian online payments and checkout platform for small businesses.",
+      "website": "https://www.instamojo.com",
+      "categories": ["payment"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.instamojo\\.com", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "juspay",
+      "name": "Juspay",
+      "description": "Indian payments orchestration and checkout infrastructure used by merchants and apps.",
+      "website": "https://www.juspay.in",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "notes": "SDK hostname recalled with moderate confidence only; treat as a weak corroborating signal.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "assets\\.juspay\\.in|sdk\\.juspay\\.in", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "haptik",
+      "name": "Haptik",
+      "description": "Conversational AI chatbot widget (Reliance Jio-owned).",
+      "website": "https://www.haptik.ai",
+      "categories": ["live-chat", "widget"],
+      "pricing": ["paid"],
+      "notes": "Widget hostname recalled with moderate confidence only; treat as a weak corroborating signal.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "widget\\.haptik\\.ai", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "moengage",
+      "name": "MoEngage",
+      "description": "Customer engagement and marketing automation SDK.",
+      "website": "https://www.moengage.com",
+      "categories": ["marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.moengage\\.com", "confidence": 70 },
+        { "type": "jsGlobal", "key": "Moengage", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "clevertap",
+      "name": "CleverTap",
+      "description": "Customer engagement, retention, and analytics platform.",
+      "website": "https://clevertap.com",
+      "categories": ["marketing-automation", "analytics"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "cookie", "key": "WZRK_G", "pattern": ".*", "confidence": 75 },
+        { "type": "jsGlobal", "key": "clevertap", "pattern": ".*", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "webengage",
+      "name": "WebEngage",
+      "description": "Marketing automation and customer engagement widget.",
+      "website": "https://webengage.com",
+      "categories": ["marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.webengage\\.com", "confidence": 75 },
+        { "type": "jsGlobal", "key": "webengage", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "imagekit",
+      "name": "ImageKit.io",
+      "description": "Real-time image and video optimization CDN.",
+      "website": "https://imagekit.io",
+      "categories": ["cdn"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "ik\\.imagekit\\.io", "confidence": 85 }
+      ]
+    }
+  ]
+}

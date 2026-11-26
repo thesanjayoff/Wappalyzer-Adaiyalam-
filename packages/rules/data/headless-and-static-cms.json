@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "contentful",
+      "name": "Contentful",
+      "description": "Headless content management API platform.",
+      "website": "https://www.contentful.com",
+      "categories": ["cms"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "images\\.ctfassets\\.net", "confidence": 45, "note": "Contentful is API-only; this asset-CDN domain is an indirect, moderate-confidence signal rather than a direct generator fingerprint." },
+        { "type": "html", "pattern": "cdn\\.contentful\\.com", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "sanity",
+      "name": "Sanity",
+      "description": "Headless content management platform with a structured-content API.",
+      "website": "https://www.sanity.io",
+      "categories": ["cms"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "cdn\\.sanity\\.io", "confidence": 45, "note": "Sanity is API-only; the asset CDN domain is an indirect, moderate-confidence signal." }
+      ]
+    },
+    {
+      "id": "prismic",
+      "name": "Prismic",
+      "description": "Headless content management platform.",
+      "website": "https://prismic.io",
+      "categories": ["cms"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "images\\.prismic\\.io", "confidence": 50 },
+        { "type": "html", "pattern": "\\.cdn\\.prismic\\.io", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "contentstack",
+      "name": "Contentstack",
+      "description": "Headless content management platform.",
+      "website": "https://www.contentstack.com",
+      "categories": ["cms"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "html", "pattern": "images\\.contentstack\\.io", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "storyblok",
+      "name": "Storyblok",
+      "description": "Headless CMS with a visual-editing bridge.",
+      "website": "https://www.storyblok.com",
+      "categories": ["cms"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "app\\.storyblok\\.com/f/storyblok-v2-latest\\.js", "confidence": 90 },
+        { "type": "html", "pattern": "a\\.storyblok\\.com", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "strapi",
+      "name": "Strapi",
+      "description": "Open-source headless CMS, typically deployed as a self-hosted API.",
+      "website": "https://strapi.io",
+      "categories": ["cms", "backend-framework"],
+      "pricing": ["free", "open-source", "paid"],
+      "openSource": true,
+      "evidence": [
+        { "type": "probe", "key": "/admin", "pattern": "Strapi", "confidence": 40, "note": "Low-moderate confidence: relies on the admin panel being reachable at /admin, which is often disabled or firewalled in production." }
+      ]
+    },
+    {
+      "id": "craft-cms",
+      "name": "Craft CMS",
+      "description": "Content management system built on PHP/Yii.",
+      "website": "https://craftcms.com",
+      "categories": ["cms"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "cookie", "key": "CraftSessionId", "pattern": ".*", "confidence": 90 },
+        { "type": "header", "key": "x-powered-by", "pattern": "Craft CMS", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "typo3",
+      "name": "TYPO3",
+      "description": "Open-source enterprise content management system.",
+      "website": "https://typo3.org",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "html", "pattern": "/typo3conf/", "confidence": 70 },
+        { "type": "html", "pattern": "/typo3temp/", "confidence": 55 },
+        { "type": "cookie", "key": "fe_typo_user", "pattern": ".*", "confidence": 75 }
+      ]
+    },
+    {
+      "id": "umbraco",
+      "name": "Umbraco",
+      "description": "Open-source ASP.NET content management system.",
+      "website": "https://umbraco.com",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source", "paid"],
+      "openSource": true,
+      "implies": [{ "id": "aspnet", "confidence": 55 }],
+      "evidence": [
+        { "type": "html", "pattern": "/umbraco/", "confidence": 55 },
+        { "type": "header", "key": "x-umbraco-version", "pattern": ".*", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "kentico",
+      "name": "Kentico",
+      "description": "ASP.NET-based content management and digital experience platform.",
+      "website": "https://www.kentico.com",
+      "categories": ["cms"],
+      "pricing": ["paid"],
+      "implies": [{ "id": "aspnet", "confidence": 50 }],
+      "evidence": [
+        { "type": "cookie", "key": "CMSPreferredCulture", "pattern": ".*", "confidence": 85 },
+        { "type": "html", "pattern": "/CMSPages/", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "sitecore",
+      "name": "Sitecore",
+      "description": "ASP.NET-based enterprise digital experience platform.",
+      "website": "https://www.sitecore.com",
+      "categories": ["cms"],
+      "pricing": ["paid"],
+      "implies": [{ "id": "aspnet", "confidence": 50 }],
+      "evidence": [
+        { "type": "cookie", "key": "SC_ANALYTICS_GLOBAL_COOKIE", "pattern": ".*", "confidence": 90 },
+        { "type": "html", "pattern": "/sitecore/shell/", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "adobe-experience-manager",
+      "name": "Adobe Experience Manager",
+      "description": "Enterprise content management and digital experience platform.",
+      "website": "https://business.adobe.com/products/experience-manager/adobe-experience-manager.html",
+      "categories": ["cms"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "html", "pattern": "/etc\\.clientlibs/", "confidence": 80 },
+        { "type": "html", "pattern": "/content/dam/", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "expressionengine",
+      "name": "ExpressionEngine",
+      "description": "Content management system built on PHP.",
+      "website": "https://www.expressionengine.com",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source", "paid"],
+      "openSource": true,
+      "evidence": [
+        { "type": "cookie", "key": "exp_last_activity", "pattern": ".*", "confidence": 65, "note": "The exp_ cookie prefix is a strong ExpressionEngine convention but not cryptographically unique to it." },
+        { "type": "cookie", "key": "exp_tracker", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "concrete-cms",
+      "name": "Concrete CMS",
+      "description": "Open-source content management system (formerly concrete5).",
+      "website": "https://www.concretecms.com",
+      "categories": ["cms"],
+      "pricing": ["free", "open-source", "paid"],
+      "openSource": true,
+      "evidence": [
+        { "type": "html", "pattern": "/concrete/js/", "confidence": 45, "note": "Moderate confidence — classic concrete5/Concrete CMS asset directory convention." },
+        { "type": "html", "pattern": "/concrete/css/", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo",
+      "description": "Open-source static site generator written in Go.",
+      "website": "https://gohugo.io",
+      "categories": ["static-site-generator"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Hugo", "confidence": 65, "note": "Depends on the theme emitting a generator meta tag; not guaranteed for every Hugo site." }
+      ]
+    },
+    {
+      "id": "jekyll",
+      "name": "Jekyll",
+      "description": "Open-source static site generator written in Ruby.",
+      "website": "https://jekyllrb.com",
+      "categories": ["static-site-generator"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Jekyll", "confidence": 60, "note": "Common on GitHub Pages-hosted Jekyll sites; not guaranteed for every build." }
+      ]
+    },
+    {
+      "id": "gatsby",
+      "name": "Gatsby",
+      "description": "React-based static site generator and framework.",
+      "website": "https://www.gatsbyjs.com",
+      "categories": ["js-framework", "static-site-generator"],
+      "pricing": ["free", "open-source", "freemium"],
+      "openSource": true,
+      "implies": [{ "id": "reactjs", "confidence": 60 }],
+      "evidence": [
+        { "type": "domExists", "key": "#___gatsby", "confidence": 85 },
+        { "type": "jsGlobal", "key": "___gatsby", "pattern": ".*", "confidence": 65 },
+        { "type": "html", "pattern": "/page-data/app-data\\.json", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "docusaurus",
+      "name": "Docusaurus",
+      "description": "React-based static site generator for documentation sites.",
+      "website": "https://docusaurus.io",
+      "categories": ["static-site-generator"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "reactjs", "confidence": 50 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Docusaurus", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "astro",
+      "name": "Astro",
+      "description": "Static-site-focused web framework with an islands architecture.",
+      "website": "https://astro.build",
+      "categories": ["js-framework", "static-site-generator"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "html", "pattern": "<astro-island", "confidence": 80 },
+        { "type": "meta", "key": "generator", "pattern": "^Astro", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "mkdocs",
+      "name": "MkDocs",
+      "description": "Static site generator for project documentation, written in Python.",
+      "website": "https://www.mkdocs.org",
+      "categories": ["static-site-generator"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^mkdocs", "flags": "i", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "sphinx",
+      "name": "Sphinx",
+      "description": "Static site generator for documentation, written in Python.",
+      "website": "https://www.sphinx-doc.org",
+      "categories": ["static-site-generator"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "html", "pattern": "Created\\s+using\\s+<a[^>]*>Sphinx", "confidence": 75 },
+        { "type": "meta", "key": "generator", "pattern": "^Docutils", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "notion-sites",
+      "name": "Notion (published site)",
+      "description": "Publicly published page or site built with Notion.",
+      "website": "https://www.notion.so",
+      "categories": ["site-builder", "miscellaneous"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "notion-static\\.com", "confidence": 40, "note": "Moderate confidence — Notion's static-asset domain naming has changed over time; treated as a weak corroborating signal." },
+        { "type": "domExists", "key": "#notion-app", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "weebly",
+      "name": "Weebly",
+      "description": "Drag-and-drop website builder (owned by Square).",
+      "website": "https://www.weebly.com",
+      "categories": ["site-builder"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "cdn2\\.editmysite\\.com", "confidence": 80 },
+        { "type": "html", "pattern": "weebly\\.com", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "jimdo",
+      "name": "Jimdo",
+      "description": "Website builder platform.",
+      "website": "https://www.jimdo.com",
+      "categories": ["site-builder"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "res\\.jimdo\\.com", "confidence": 55, "note": "Moderate confidence on the exact asset domain." },
+        { "type": "html", "pattern": "jimdo", "confidence": 25, "note": "Generic substring match, low confidence on its own." }
+      ]
+    },
+    {
+      "id": "strikingly",
+      "name": "Strikingly",
+      "description": "Website builder platform.",
+      "website": "https://www.strikingly.com",
+      "categories": ["site-builder"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "assets\\.strikinglycdn\\.com", "confidence": 60, "note": "Moderate confidence on the exact asset domain." }
+      ]
+    },
+    {
+      "id": "tilda",
+      "name": "Tilda",
+      "description": "Website builder platform.",
+      "website": "https://tilda.cc",
+      "categories": ["site-builder"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "html", "pattern": "static\\.tildacdn\\.com", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "framer",
+      "name": "Framer",
+      "description": "Design tool and website publishing platform.",
+      "website": "https://www.framer.com",
+      "categories": ["site-builder"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Framer$", "confidence": 80 },
+        { "type": "html", "pattern": "framerusercontent\\.com", "confidence": 65 }
+      ]
+    },
+    {
+      "id": "godaddy-website-builder",
+      "name": "GoDaddy Website Builder",
+      "description": "Drag-and-drop website builder service from GoDaddy.",
+      "website": "https://www.godaddy.com/websites/website-builder",
+      "categories": ["site-builder"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "html", "pattern": "img[0-9]?\\.wsimg\\.com", "confidence": 50, "note": "Moderate confidence — wsimg.com is GoDaddy Website Builder's image domain." }
+      ]
+    }
+  ]
+}

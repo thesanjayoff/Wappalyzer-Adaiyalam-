@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "opencart",
+      "name": "OpenCart",
+      "description": "Open-source ecommerce platform written in PHP.",
+      "website": "https://www.opencart.com",
+      "categories": ["ecommerce"],
+      "pricing": ["free", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "cookie", "key": "OCSESSID", "pattern": ".*", "confidence": 80 },
+        { "type": "html", "pattern": "catalog/view/theme/[\\w-]+/", "confidence": 45 },
+        { "type": "meta", "key": "generator", "pattern": "^OpenCart", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "salesforce-commerce-cloud",
+      "name": "Salesforce Commerce Cloud",
+      "description": "Hosted ecommerce platform (formerly Demandware).",
+      "website": "https://www.salesforce.com/commerce/",
+      "categories": ["ecommerce"],
+      "pricing": ["paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "html", "pattern": "/on/demandware\\.store/", "confidence": 90 },
+        { "type": "cookie", "key": "dwsid", "pattern": ".*", "confidence": 70 },
+        { "type": "cookie", "key": "dwanonymous_*", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "vtex",
+      "name": "VTEX",
+      "description": "Hosted ecommerce platform popular in Latin America.",
+      "website": "https://vtex.com",
+      "categories": ["ecommerce"],
+      "pricing": ["paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "vteximg\\.com\\.br|vtexassets\\.com", "confidence": 85 },
+        { "type": "cookie", "key": "VtexIdclientAutCookie", "pattern": ".*", "confidence": 80 },
+        { "type": "jsGlobal", "key": "vtex", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "shopware",
+      "name": "Shopware",
+      "description": "Open-source ecommerce platform written in PHP.",
+      "website": "https://www.shopware.com",
+      "categories": ["ecommerce"],
+      "pricing": ["free", "paid", "open-source"],
+      "openSource": true,
+      "implies": [{ "id": "php", "confidence": 60 }],
+      "evidence": [
+        { "type": "meta", "key": "generator", "pattern": "^Shopware", "confidence": 90 },
+        { "type": "cookie", "key": "sw-context-token", "pattern": ".*", "confidence": 75 },
+        { "type": "cookie", "key": "sw-cache-hash", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "ecwid",
+      "name": "Ecwid",
+      "description": "Embeddable ecommerce storefront widget.",
+      "website": "https://www.ecwid.com",
+      "categories": ["ecommerce", "widget"],
+      "pricing": ["freemium", "paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "app\\.ecwid\\.com/script\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Ecwid", "pattern": ".*", "confidence": 60 },
+        { "type": "domExists", "key": "div[id^=\"my-store-\"]", "confidence": 30 }
+      ]
+    },
+    {
+      "id": "shift4shop",
+      "name": "Shift4Shop",
+      "description": "Hosted ecommerce platform, formerly 3dcart.",
+      "website": "https://www.shift4shop.com",
+      "categories": ["ecommerce"],
+      "pricing": ["freemium", "paid"],
+      "saas": true,
+      "notes": "Moderate confidence only — 3dcart-era asset domain recalled from memory, not independently re-verified against the current Shift4Shop platform.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.3dcartstores\\.com", "confidence": 55 },
+        { "type": "cookie", "key": "3dvisit", "pattern": ".*", "confidence": 35 }
+      ]
+    },
+    {
+      "id": "snipcart",
+      "name": "Snipcart",
+      "description": "Embeddable JavaScript shopping cart widget.",
+      "website": "https://snipcart.com",
+      "categories": ["ecommerce", "widget"],
+      "pricing": ["freemium", "paid"],
+      "saas": true,
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.snipcart\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Snipcart", "pattern": ".*", "confidence": 60 },
+        { "type": "domAttr", "key": "[data-api-key]", "attr": "class", "pattern": "snipcart", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "big-cartel",
+      "name": "Big Cartel",
+      "description": "Hosted ecommerce platform for independent artists and small stores.",
+      "website": "https://www.bigcartel.com",
+      "categories": ["ecommerce"],
+      "pricing": ["freemium", "paid"],
+      "saas": true,
+      "notes": "Moderate confidence — asset-domain pattern recalled from memory, not independently re-verified.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "bigcartel\\.com/.*\\.js|cdn\\.bigcartel\\.com", "confidence": 55 },
+        { "type": "html", "pattern": "Powered by <a[^>]*bigcartel\\.com", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "square",
+      "name": "Square",
+      "description": "Payment processing and point-of-sale platform.",
+      "website": "https://squareup.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.squareup\\.com|web\\.squarecdn\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Square", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "braintree",
+      "name": "Braintree",
+      "description": "Online payment processing platform, a PayPal company.",
+      "website": "https://www.braintreepayments.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.braintreegateway\\.com|assets\\.braintreegateway\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "braintree", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "adyen",
+      "name": "Adyen",
+      "description": "Online payment processing platform.",
+      "website": "https://www.adyen.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "checkoutshopper-(?:live|test)\\.adyen\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "AdyenCheckout", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "klarna",
+      "name": "Klarna",
+      "description": "Buy-now-pay-later and online payment platform.",
+      "website": "https://www.klarna.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "x\\.klarnacdn\\.net|js\\.klarna\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Klarna", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "afterpay",
+      "name": "Afterpay / Clearpay",
+      "description": "Buy-now-pay-later installment payment service.",
+      "website": "https://www.afterpay.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "notes": "Moderate confidence on the exact script domain — recalled from memory, not independently re-verified.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.afterpay\\.com|portal\\.afterpay\\.com", "confidence": 65 },
+        { "type": "jsGlobal", "key": "AfterPay", "pattern": ".*", "confidence": 45 }
+      ]
+    },
+    {
+      "id": "authorize-net",
+      "name": "Authorize.Net",
+      "description": "Online payment gateway (a Visa solution).",
+      "website": "https://www.authorize.net",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.authorize\\.net/v[0-9]+/Accept(?:UI|\\.js)|jstest\\.authorize\\.net", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "mollie",
+      "name": "Mollie",
+      "description": "Online payment processing platform popular in Europe.",
+      "website": "https://www.mollie.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.mollie\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Mollie", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "amazon-pay",
+      "name": "Amazon Pay",
+      "description": "Checkout payment service using Amazon account credentials.",
+      "website": "https://pay.amazon.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static-na\\.payments-amazon\\.com|payments\\.amazon\\.(?:com|co\\.uk|de)", "confidence": 85 },
+        { "type": "jsGlobal", "key": "amazon.Pay", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "google-pay",
+      "name": "Google Pay",
+      "description": "Checkout payment service using Google account credentials.",
+      "website": "https://pay.google.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "notes": "Only the site-integration script is used as a signal; the native browser PaymentRequest/ApplePaySession APIs are deliberately NOT used as evidence since they reflect browser capability, not site integration.",
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "pay\\.google\\.com/gp/p/js/pay(?:\\.js|_wallet\\.js)", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "gocardless",
+      "name": "GoCardless",
+      "description": "Direct debit payment collection platform.",
+      "website": "https://gocardless.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.gocardless\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "GoCardless", "pattern": ".*", "confidence": 55 }
+      ]
+    },
+    {
+      "id": "checkout-com",
+      "name": "Checkout.com",
+      "description": "Online payment processing platform (Frames.js hosted fields).",
+      "website": "https://www.checkout.com",
+      "categories": ["payment"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.checkout\\.com/js/framesv?[0-9]*(?:\\.min)?\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Frames", "pattern": ".*", "confidence": 35 }
+      ]
+    }
+  ]
+}

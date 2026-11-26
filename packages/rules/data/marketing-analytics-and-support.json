@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "technologies": [
+    {
+      "id": "mixpanel",
+      "name": "Mixpanel",
+      "description": "Product analytics platform for event tracking.",
+      "website": "https://mixpanel.com",
+      "categories": ["analytics"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.mxpnl\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "mixpanel", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "amplitude",
+      "name": "Amplitude",
+      "description": "Product analytics platform.",
+      "website": "https://amplitude.com",
+      "categories": ["analytics"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.amplitude\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "amplitude", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "segment",
+      "name": "Segment",
+      "description": "Customer data platform / analytics event router.",
+      "website": "https://segment.com",
+      "categories": ["analytics"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.segment\\.com/analytics\\.js", "confidence": 90 },
+        { "type": "cookie", "key": "ajs_anonymous_id", "pattern": ".*", "confidence": 70 },
+        { "type": "cookie", "key": "ajs_user_id", "pattern": ".*", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "fullstory",
+      "name": "FullStory",
+      "description": "Session replay and digital experience analytics.",
+      "website": "https://www.fullstory.com",
+      "categories": ["session-replay"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "edge\\.fullstory\\.com/s/fs\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "FS", "pattern": ".*", "confidence": 30, "note": "Single-letter global, low confidence on its own; the script-src signal carries this rule." }
+      ]
+    },
+    {
+      "id": "heap",
+      "name": "Heap",
+      "description": "Product analytics platform with automatic event capture.",
+      "website": "https://www.heap.io",
+      "categories": ["analytics"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.heapanalytics\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "heap", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "plausible",
+      "name": "Plausible Analytics",
+      "description": "Lightweight, privacy-focused, open-source web analytics.",
+      "website": "https://plausible.io",
+      "categories": ["analytics"],
+      "pricing": ["paid", "open-source"],
+      "openSource": true,
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "plausible\\.io/js/(script|plausible)[\\w.-]*\\.js", "confidence": 90 },
+        { "type": "domAttr", "key": "script", "attr": "data-domain", "pattern": ".*", "confidence": 30, "note": "Self-hosted Plausible instances change the script domain but keep this data attribute; weak alone." }
+      ]
+    },
+    {
+      "id": "fathom-analytics",
+      "name": "Fathom Analytics",
+      "description": "Privacy-focused, cookie-free web analytics.",
+      "website": "https://usefathom.com",
+      "categories": ["analytics"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.usefathom\\.com/script\\.js", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "adobe-analytics",
+      "name": "Adobe Analytics",
+      "description": "Enterprise web analytics (formerly Omniture/SiteCatalyst).",
+      "website": "https://business.adobe.com/products/analytics/adobe-analytics.html",
+      "categories": ["analytics"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "cookie", "key": "s_ecid", "pattern": ".*", "confidence": 55, "note": "Adobe Experience Cloud ID cookie; fairly specific to Adobe but AppMeasurement.js is usually self-hosted so no fixed script domain." },
+        { "type": "cookie", "key": "s_cc", "pattern": ".*", "confidence": 35 }
+      ]
+    },
+    {
+      "id": "crazy-egg",
+      "name": "Crazy Egg",
+      "description": "Heatmap and session-recording tool.",
+      "website": "https://www.crazyegg.com",
+      "categories": ["session-replay"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "script\\.crazyegg\\.com", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "mouseflow",
+      "name": "Mouseflow",
+      "description": "Session replay, heatmaps, and funnel analytics.",
+      "website": "https://mouseflow.com",
+      "categories": ["session-replay"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.mouseflow\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "_mfq", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "lucky-orange",
+      "name": "Lucky Orange",
+      "description": "Heatmaps, session recording, and live chat analytics.",
+      "website": "https://www.luckyorange.com",
+      "categories": ["session-replay"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.luckyorange\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "__lo_site_id", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "yandex-metrica",
+      "name": "Yandex Metrica",
+      "description": "Web analytics service by Yandex.",
+      "website": "https://metrica.yandex.com",
+      "categories": ["analytics"],
+      "pricing": ["free"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "mc\\.yandex\\.ru/metrika/tag\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "ym", "pattern": ".*", "confidence": 30, "note": "Short global name, low confidence on its own." }
+      ]
+    },
+    {
+      "id": "optimizely",
+      "name": "Optimizely",
+      "description": "A/B testing and feature experimentation platform.",
+      "website": "https://www.optimizely.com",
+      "categories": ["analytics"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.optimizely\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "optimizely", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "vwo",
+      "name": "VWO (Visual Website Optimizer)",
+      "description": "A/B testing and conversion-rate-optimization platform.",
+      "website": "https://vwo.com",
+      "categories": ["analytics"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "dev\\.visualwebsiteoptimizer\\.com", "confidence": 90 },
+        { "type": "cookie", "key": "_vwo_uuid", "pattern": ".*", "confidence": 70 }
+      ]
+    },
+    {
+      "id": "ab-tasty",
+      "name": "AB Tasty",
+      "description": "A/B testing and experience-optimization platform.",
+      "website": "https://www.abtasty.com",
+      "categories": ["analytics"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "try\\.abtasty\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "ABTasty", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "criteo",
+      "name": "Criteo",
+      "description": "Retargeting and advertising network.",
+      "website": "https://www.criteo.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.criteo\\.net", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "taboola",
+      "name": "Taboola",
+      "description": "Content discovery / native advertising network.",
+      "website": "https://www.taboola.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.taboola\\.com/libtrc", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "outbrain",
+      "name": "Outbrain",
+      "description": "Content discovery / native advertising network.",
+      "website": "https://www.outbrain.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "widgets\\.outbrain\\.com/outbrain\\.js", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "adroll",
+      "name": "AdRoll",
+      "description": "Retargeting and cross-channel advertising platform.",
+      "website": "https://www.adroll.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "s\\.adroll\\.com", "confidence": 85 },
+        { "type": "jsGlobal", "key": "__adroll", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "microsoft-advertising-uet",
+      "name": "Microsoft Advertising (UET)",
+      "description": "Universal Event Tracking tag for Microsoft/Bing Ads conversion tracking.",
+      "website": "https://ads.microsoft.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "bat\\.bing\\.com/bat\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "uetq", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "twitter-pixel",
+      "name": "X (Twitter) Pixel",
+      "description": "Conversion-tracking pixel for X/Twitter Ads.",
+      "website": "https://business.x.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.ads-twitter\\.com/uwt\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "twq", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "pinterest-tag",
+      "name": "Pinterest Tag",
+      "description": "Conversion-tracking tag for Pinterest Ads.",
+      "website": "https://ads.pinterest.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "s\\.pinimg\\.com/ct/core\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "pintrk", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "snapchat-pixel",
+      "name": "Snapchat Pixel",
+      "description": "Conversion-tracking pixel for Snapchat Ads.",
+      "website": "https://forbusiness.snapchat.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "sc-static\\.net/scevent\\.min\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "snaptr", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "tiktok-pixel",
+      "name": "TikTok Pixel",
+      "description": "Conversion-tracking pixel for TikTok Ads.",
+      "website": "https://ads.tiktok.com",
+      "categories": ["advertising"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "analytics\\.tiktok\\.com/i18n/pixel/events\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "ttq", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "mailchimp",
+      "name": "Mailchimp",
+      "description": "Email marketing platform and signup-form widget.",
+      "website": "https://mailchimp.com",
+      "categories": ["email-marketing"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "chimpstatic\\.com", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "klaviyo",
+      "name": "Klaviyo",
+      "description": "Email and SMS marketing automation platform, popular with ecommerce.",
+      "website": "https://www.klaviyo.com",
+      "categories": ["email-marketing", "marketing-automation"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.klaviyo\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "_learnq", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "activecampaign",
+      "name": "ActiveCampaign",
+      "description": "Email marketing and marketing automation platform.",
+      "website": "https://www.activecampaign.com",
+      "categories": ["email-marketing", "marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "trackcmp\\.net", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "constant-contact",
+      "name": "Constant Contact",
+      "description": "Email marketing platform and signup-form widget.",
+      "website": "https://www.constantcontact.com",
+      "categories": ["email-marketing"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.ctctcdn\\.com", "confidence": 80 }
+      ]
+    },
+    {
+      "id": "hubspot",
+      "name": "HubSpot",
+      "description": "Marketing, sales, and CRM platform.",
+      "website": "https://www.hubspot.com",
+      "categories": ["marketing-automation", "email-marketing"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js(\\.hs-scripts|-eu1\\.hs-scripts|\\.hs-analytics|\\.hsforms)\\.(com|net)", "confidence": 90 },
+        { "type": "cookie", "key": "hubspotutk", "pattern": ".*", "confidence": 85 }
+      ]
+    },
+    {
+      "id": "marketo",
+      "name": "Marketo",
+      "description": "Marketing automation platform (Adobe Experience Cloud).",
+      "website": "https://business.adobe.com/products/marketo/adobe-marketo.html",
+      "categories": ["marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "munchkin\\.marketo\\.net/munchkin\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "Munchkin", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "pardot",
+      "name": "Pardot",
+      "description": "B2B marketing automation platform (Salesforce).",
+      "website": "https://www.pardot.com",
+      "categories": ["marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "pi\\.pardot\\.com", "confidence": 80, "note": "Moderate confidence — Pardot tracking-code hostnames can be customized per account." }
+      ]
+    },
+    {
+      "id": "drip",
+      "name": "Drip",
+      "description": "Ecommerce-focused email marketing and automation platform.",
+      "website": "https://www.drip.com",
+      "categories": ["email-marketing", "marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "tag\\.getdrip\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "_dcq", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "convertkit",
+      "name": "ConvertKit",
+      "description": "Email marketing platform for creators.",
+      "website": "https://convertkit.com",
+      "categories": ["email-marketing"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "f\\.convertkit\\.com", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "customerio",
+      "name": "Customer.io",
+      "description": "Customer messaging and marketing automation platform.",
+      "website": "https://customer.io",
+      "categories": ["marketing-automation"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "assets\\.customer\\.io", "confidence": 90 },
+        { "type": "jsGlobal", "key": "_cio", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "onesignal",
+      "name": "OneSignal",
+      "description": "Web and mobile push-notification platform.",
+      "website": "https://onesignal.com",
+      "categories": ["marketing-automation"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.onesignal\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "OneSignal", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "typeform",
+      "name": "Typeform",
+      "description": "Online form and survey builder.",
+      "website": "https://www.typeform.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "embed\\.typeform\\.com", "confidence": 90 },
+        { "type": "domAttr", "key": "iframe", "attr": "src", "pattern": "typeform\\.com", "confidence": 60 }
+      ]
+    },
+    {
+      "id": "jotform",
+      "name": "JotForm",
+      "description": "Online form builder.",
+      "website": "https://www.jotform.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.jotfor\\.ms", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "surveymonkey",
+      "name": "SurveyMonkey",
+      "description": "Online survey platform and embeddable widget.",
+      "website": "https://www.surveymonkey.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "widget\\.surveymonkey\\.com", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "zendesk-chat",
+      "name": "Zendesk Chat",
+      "description": "Live chat widget (formerly Zopim).",
+      "website": "https://www.zendesk.com/service/messaging/live-chat/",
+      "categories": ["live-chat"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "v2\\.zopim\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "$zopim", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "zendesk-support-widget",
+      "name": "Zendesk Support Widget",
+      "description": "Embeddable help-center and support widget.",
+      "website": "https://www.zendesk.com",
+      "categories": ["live-chat", "widget"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.zdassets\\.com/ekr/snippet\\.js", "confidence": 90 },
+        { "type": "jsGlobal", "key": "zE", "pattern": ".*", "confidence": 30, "note": "Two-letter global, low confidence alone; the script-src signal carries this rule." }
+      ]
+    },
+    {
+      "id": "livechat",
+      "name": "LiveChat",
+      "description": "Live chat widget for customer support and sales.",
+      "website": "https://www.livechat.com",
+      "categories": ["live-chat"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.livechatinc\\.com", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "olark",
+      "name": "Olark",
+      "description": "Live chat widget.",
+      "website": "https://www.olark.com",
+      "categories": ["live-chat"],
+      "pricing": ["paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "static\\.olark\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "olark", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "crisp",
+      "name": "Crisp",
+      "description": "Live chat and customer messaging widget.",
+      "website": "https://crisp.chat",
+      "categories": ["live-chat"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "client\\.crisp\\.chat", "confidence": 90 },
+        { "type": "jsGlobal", "key": "$crisp", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "drift",
+      "name": "Drift",
+      "description": "Conversational marketing and live chat widget.",
+      "website": "https://www.drift.com",
+      "categories": ["live-chat"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "js\\.driftt\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "drift", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "tidio",
+      "name": "Tidio",
+      "description": "Live chat and chatbot widget.",
+      "website": "https://www.tidio.com",
+      "categories": ["live-chat"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "code\\.tidio\\.co", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "disqus",
+      "name": "Disqus",
+      "description": "Embeddable blog-comment system.",
+      "website": "https://disqus.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "disqus\\.com/embed\\.js|disqus\\.com/forums/[\\w-]+/embed\\.js", "confidence": 90 },
+        { "type": "domExists", "key": "#disqus_thread", "confidence": 60 },
+        { "type": "jsGlobal", "key": "DISQUS", "pattern": ".*", "confidence": 50 }
+      ]
+    },
+    {
+      "id": "trustpilot",
+      "name": "Trustpilot",
+      "description": "Customer-review widget and platform.",
+      "website": "https://www.trustpilot.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "widget\\.trustpilot\\.com", "confidence": 90 }
+      ]
+    },
+    {
+      "id": "yotpo",
+      "name": "Yotpo",
+      "description": "Ecommerce reviews and user-generated-content widget.",
+      "website": "https://www.yotpo.com",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "staticw2\\.yotpo\\.com", "confidence": 90 },
+        { "type": "jsGlobal", "key": "yotpo", "pattern": ".*", "confidence": 40 }
+      ]
+    },
+    {
+      "id": "judgeme",
+      "name": "Judge.me",
+      "description": "Ecommerce product-reviews widget.",
+      "website": "https://judge.me",
+      "categories": ["widget"],
+      "pricing": ["freemium", "paid"],
+      "evidence": [
+        { "type": "scriptSrc", "pattern": "cdn\\.judge\\.me", "confidence": 90 }
+      ]
+    }
+  ]
+}
