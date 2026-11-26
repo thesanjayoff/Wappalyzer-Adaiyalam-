@@ -7,6 +7,7 @@ import { registerHistoryCommands } from "./commands/history.js";
 import { registerDashboardCommand } from "./commands/dashboard.js";
 import { registerVulnDataCommands } from "./commands/vuln-data.js";
 import { registerBulkCommand } from "./commands/bulk.js";
+import { registerDiffCommand } from "./commands/diff.js";
 
 const program = new Command();
 program.name(APP_NAME.toLowerCase()).description(`${APP_NAME} — ${APP_TAGLINE}`).version("0.1.0");
@@ -17,6 +18,7 @@ registerHistoryCommands(program);
 registerDashboardCommand(program);
 registerVulnDataCommands(program);
 registerBulkCommand(program);
+registerDiffCommand(program);
 
 program.parseAsync(process.argv).catch((err: Error) => {
   console.error(`Error: ${err.message}`);
