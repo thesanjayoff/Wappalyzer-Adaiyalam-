@@ -1,0 +1,18 @@
+{
+  "name": "@adaiyalam/collectors",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@adaiyalam/config": "*",
+    "@adaiyalam/engine": "*",
+    "@adaiyalam/schema": "*",
+    "cheerio": "^1.0.0",
+    "undici": "^7.2.0"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.49.1"
+  }
+}
