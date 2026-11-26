@@ -3,6 +3,7 @@ import { isPrivateOrReservedIp, assertAllowedScheme, SsrfBlockedError } from "./
 import { parseRobotsTxt, isAllowedByRobots, crawlDelayFor } from "./robots.js";
 import { RateLimiter } from "./rate-limiter.js";
 import { parseSetCookies } from "./cookies.js";
+import { safeFetch } from "./http-client.js";
 
 describe("isPrivateOrReservedIp", () => {
   it("flags loopback, link-local, and private ranges", () => {
@@ -93,6 +94,22 @@ describe("RateLimiter", () => {
     await limiter.schedule("a.example.com");
     await limiter.schedule("b.example.com");
     expect(Date.now() - start).toBeLessThan(500);
+  });
+});
+
+describe("safeFetch SSRF protection", () => {
+  it("blocks a literal private IP even though no DNS lookup is needed to reach it", async () => {
+    // Regression test: Node only invokes a custom `lookup` hook when the
+    // host is a hostname, never when it's already an IP literal, so this
+    // case must be caught by an explicit pre-flight check instead.
+    const result = await safeFetch("http://127.0.0.1:1/some-path", { timeoutMs: 1000 });
+    expect(result.error).toMatch(/private|reserved/);
+    expect(result.statusCode).toBe(0);
+  });
+
+  it("blocks disallowed schemes", async () => {
+    const result = await safeFetch("file:///etc/passwd", { timeoutMs: 1000 });
+    expect(result.error).toMatch(/scheme/);
   });
 });
 

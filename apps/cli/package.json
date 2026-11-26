@@ -1,0 +1,17 @@
+{
+  "name": "@adaiyalam/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "adaiyalam": "./src/index.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@adaiyalam/collectors": "*",
+    "@adaiyalam/config": "*",
+    "@adaiyalam/engine": "*",
+    "@adaiyalam/rules": "*",
+    "@adaiyalam/schema": "*",
+    "commander": "^12.1.0"
+  }
+}

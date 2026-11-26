@@ -1,6 +1,6 @@
 import type { Readable } from "node:stream";
 import { Agent, request as undiciRequest } from "undici";
-import { assertAllowedScheme, createSsrfSafeLookup, type SsrfOptions } from "./ssrf.js";
+import { assertAllowedScheme, createSsrfSafeLookup, resolveAndValidateHost, type SsrfOptions } from "./ssrf.js";
 
 export interface SafeFetchOptions {
   method?: "GET" | "HEAD";
@@ -97,6 +97,12 @@ export async function safeFetch(url: string, options: SafeFetchOptions = {}): Pr
     const parsed = new URL(currentUrl);
     try {
       assertAllowedScheme(parsed);
+      // `Agent.connect.lookup` below protects hostname->IP resolution, but
+      // Node never calls that hook when the URL's host is already a literal
+      // IP address (no DNS lookup needed) — so a bare "http://127.0.0.1/..."
+      // would otherwise sail straight through. Validate explicitly up front
+      // for that case (and redundantly, harmlessly, for the hostname case).
+      await resolveAndValidateHost(parsed.hostname, options.ssrf ?? {});
     } catch (err) {
       return { finalUrl: currentUrl, redirectChain, statusCode: 0, headers: {}, setCookies: [], body: "", bodyTruncated: false, error: (err as Error).message };
     }
@@ -110,7 +116,6 @@ export async function safeFetch(url: string, options: SafeFetchOptions = {}): Pr
         headers: { "accept-encoding": "identity", ...options.headers },
         dispatcher: agent,
         signal: controller.signal,
-        throwOnError: false,
       });
 
       const location = response.headers.location;
