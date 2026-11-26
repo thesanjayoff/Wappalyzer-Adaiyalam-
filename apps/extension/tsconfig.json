@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist-ts",
+    "rootDir": ".",
+    "noEmit": false,
+    "types": ["chrome"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.json"],
+  "references": [{ "path": "../../packages/config" }, { "path": "../../packages/schema" }, { "path": "../../packages/engine" }, { "path": "../../packages/rules" }]
+}

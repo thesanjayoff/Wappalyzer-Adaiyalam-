@@ -327,5 +327,11 @@ scanForm.addEventListener("submit", async (event) => {
   }
 });
 
-loadCategories();
+loadCategories().then(() => {
+  const deepLinkUrl = new URLSearchParams(location.search).get("url");
+  if (deepLinkUrl) {
+    scanUrlInput.value = deepLinkUrl;
+    scanForm.requestSubmit();
+  }
+});
 loadSites();

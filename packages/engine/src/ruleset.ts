@@ -1,9 +1,9 @@
-import { createHash } from "node:crypto";
 import type { FingerprintRule } from "@adaiyalam/schema";
 import { compileRule, type CompiledRule } from "./compile.js";
+import { stableHash } from "./util.js";
 
 export function hashRule(rule: FingerprintRule): string {
-  return createHash("sha256").update(JSON.stringify(rule)).digest("hex").slice(0, 16);
+  return stableHash(JSON.stringify(rule));
 }
 
 export interface LoadedRuleset {
@@ -15,15 +15,12 @@ export interface LoadedRuleset {
 
 export function compileRuleset(rules: FingerprintRule[]): LoadedRuleset {
   const compiled = rules.map((rule) => compileRule(rule, hashRule(rule)));
-  const version = createHash("sha256")
-    .update(
-      compiled
-        .map((r) => r.contentHash)
-        .sort()
-        .join(":")
-    )
-    .digest("hex")
-    .slice(0, 16);
+  const version = stableHash(
+    compiled
+      .map((r) => r.contentHash)
+      .sort()
+      .join(":")
+  );
   return { rules: compiled, byId: new Map(compiled.map((r) => [r.id, r])), version };
 }
 

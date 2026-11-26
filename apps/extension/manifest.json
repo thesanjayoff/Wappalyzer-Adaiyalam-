@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Adaiyalam",
+  "short_name": "Adaiyalam",
+  "version": "0.1.0",
+  "description": "See a site's technology stack — CMS, frameworks, analytics, and more — detected entirely on your own device. No data leaves your machine.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Adaiyalam — technology detector"
+  },
+  "permissions": ["activeTab", "scripting"],
+  "minimum_chrome_version": "102"
+}

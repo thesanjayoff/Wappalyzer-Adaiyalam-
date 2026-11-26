@@ -5,6 +5,7 @@ import { matchRule } from "./matcher.js";
 import { compileRule } from "./compile.js";
 import { resolveStack } from "./stack.js";
 import { combineConfidence } from "./confidence.js";
+import { stableHash } from "./util.js";
 
 function rule(partial: Partial<FingerprintRule> & { id: string; evidence: FingerprintRule["evidence"] }): FingerprintRule {
   return {
@@ -88,6 +89,21 @@ describe("combineConfidence", () => {
       { patternIndex: 1, type: "meta", matchedValue: "b", confidence: 60, negative: false },
     ]);
     expect(combined).toBe(84);
+  });
+});
+
+describe("stableHash", () => {
+  it("is deterministic for the same input", () => {
+    expect(stableHash("hello world")).toBe(stableHash("hello world"));
+  });
+
+  it("differs for different input, including a single-character change", () => {
+    expect(stableHash("hello world")).not.toBe(stableHash("hello worle"));
+    expect(stableHash("a")).not.toBe(stableHash("b"));
+  });
+
+  it("has no dependency on Node's crypto module (usable in a bundled browser extension)", () => {
+    expect(stableHash("x")).toMatch(/^[0-9a-f]{16}$/);
   });
 });
 
