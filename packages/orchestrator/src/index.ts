@@ -5,3 +5,4 @@ export * from "./diff.js";
 export * from "./compare.js";
 export * from "./export.js";
 export * from "./crawl.js";
+export * from "./rule-quality.js";

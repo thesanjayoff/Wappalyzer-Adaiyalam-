@@ -258,6 +258,44 @@ body {
   color: #166534;
 }
 
+.fp-report-button {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.fp-report-button:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.fp-report-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.rule-quality-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.rule-quality-table th,
+.rule-quality-table td {
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rule-quality-flagged {
+  background: #fef2f2;
+}
+
 .confidence-medium {
   background: #fef9c3;
   color: #854d0e;
@@ -279,6 +317,10 @@ body {
 :root[data-theme="dark"] .confidence-low {
   background: #3f1414;
   color: #f87171;
+}
+
+:root[data-theme="dark"] .rule-quality-flagged {
+  background: #3f1414;
 }
 
 .evidence-list {

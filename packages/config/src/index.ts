@@ -62,4 +62,7 @@ export const PATHS = {
   get logs() {
     return path.join(this.home, "logs");
   },
+  get feedback() {
+    return path.join(this.home, "rule-feedback.json");
+  },
 };

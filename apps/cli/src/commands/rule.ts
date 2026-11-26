@@ -4,6 +4,8 @@ import { Command } from "commander";
 import { ruleFileSchema, validateRuleDeep, type FingerprintRule } from "@adaiyalam/schema";
 import { compileRule, emptyFacts, matchRule, type SiteFacts } from "@adaiyalam/engine";
 import { DATA_DIR, loadDefaultRuleset } from "@adaiyalam/rules";
+import { buildRuleQualityReport } from "@adaiyalam/orchestrator";
+import { getScan, reportFalsePositive } from "@adaiyalam/store";
 
 const FIXTURES_DIR = join(DATA_DIR, "..", "fixtures");
 
@@ -130,5 +132,58 @@ export function registerRuleCommand(program: Command): void {
       writeFileSync(outPath, JSON.stringify(draft, null, 2) + "\n");
       console.log(`Wrote draft rule to ${outPath}`);
       console.log(`Next: fill in real evidence, run "adaiyalam rule lint ${outPath}", add fixtures under rules/fixtures/${techId}/, then move it into rules/data/.`);
+    });
+
+  rule
+    .command("quality")
+    .description("Rule-quality signal built from THIS installation's own scan history and false-positive reports (local only, never sent anywhere)")
+    .option("--json", "print as JSON")
+    .option("--only-flagged", "only show rules with at least one false-positive report")
+    .option("--all", "also show rules never detected in any saved scan (omitted by default to cut noise)")
+    .action((options) => {
+      const fullReport = buildRuleQualityReport();
+      if (options.json) {
+        console.log(JSON.stringify(options.onlyFlagged ? fullReport.filter((r) => r.falsePositiveReports > 0) : fullReport, null, 2));
+        return;
+      }
+      let rows = fullReport;
+      if (options.onlyFlagged) rows = rows.filter((r) => r.falsePositiveReports > 0);
+      else if (!options.all) rows = rows.filter((r) => r.timesDetected > 0 || r.falsePositiveReports > 0);
+
+      if (fullReport.length === 0 || fullReport[0] === undefined) {
+        console.log("No data yet — scan some sites first.");
+        return;
+      }
+      console.log(`${fullReport[0].totalScans} saved scan(s) considered.\n`);
+      if (rows.length === 0) {
+        console.log("Nothing to show (pass --all to include never-detected rules).");
+        return;
+      }
+      console.log("techId".padEnd(28) + "hits".padEnd(8) + "hit rate".padEnd(12) + "false-positive reports");
+      for (const entry of rows) {
+        console.log(entry.techId.padEnd(28) + String(entry.timesDetected).padEnd(8) + `${(entry.hitRate * 100).toFixed(1)}%`.padEnd(12) + String(entry.falsePositiveReports));
+      }
+    });
+
+  rule
+    .command("report-false-positive")
+    .description("Record locally that a detection on a saved scan was wrong — never sent anywhere, just feeds 'adaiyalam rule quality'")
+    .argument("<scanId>", 'a saved scan id, from "adaiyalam history"')
+    .argument("<techId>", "the technology id that was wrongly detected")
+    .option("--note <text>", "optional free-text note on why")
+    .action((scanId: string, techId: string, options) => {
+      const scan = getScan(scanId);
+      if (!scan) {
+        console.error(`No saved scan found with id ${scanId}. Use "adaiyalam history" to list saved scans.`);
+        process.exitCode = 1;
+        return;
+      }
+      if (!scan.techIds.includes(techId)) {
+        console.error(`Scan ${scanId} did not detect "${techId}" — nothing to report.`);
+        process.exitCode = 1;
+        return;
+      }
+      const report = reportFalsePositive({ scanId, techId, url: scan.url, note: options.note });
+      console.log(`Recorded false-positive report ${report.id} for "${techId}" on ${scan.url}.`);
     });
 }

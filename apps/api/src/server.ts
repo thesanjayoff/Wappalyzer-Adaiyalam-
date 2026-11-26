@@ -4,8 +4,8 @@ import Fastify, { type FastifyInstance } from "fastify";
 import fastifyStatic from "@fastify/static";
 import { APP_NAME } from "@adaiyalam/config";
 import { categoryName, CATEGORIES } from "@adaiyalam/schema";
-import { getRuleset, replayScan, scanUrlFast } from "@adaiyalam/orchestrator";
-import { deleteSite, getFacts, getScan, listScans, listSites, noteSite, tagSite } from "@adaiyalam/store";
+import { buildRuleQualityReport, getRuleset, replayScan, scanUrlFast } from "@adaiyalam/orchestrator";
+import { deleteSite, getFacts, getScan, listScans, listSites, noteSite, reportFalsePositive, tagSite } from "@adaiyalam/store";
 
 const PUBLIC_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
 
@@ -93,6 +93,26 @@ export async function createServer(options: CreateServerOptions = {}): Promise<F
   app.delete<{ Params: { hostname: string } }>("/api/sites/:hostname", async (request) => {
     deleteSite(request.params.hostname);
     return { ok: true };
+  });
+
+  app.get("/api/rule-quality", async () => buildRuleQualityReport());
+
+  app.post<{ Body: { scanId: string; techId: string; note?: string } }>("/api/feedback/false-positive", async (request, reply) => {
+    const { scanId, techId, note } = request.body ?? ({} as never);
+    if (!scanId || !techId) {
+      reply.code(400);
+      return { error: "body must include `scanId` and `techId`" };
+    }
+    const scan = getScan(scanId);
+    if (!scan) {
+      reply.code(404);
+      return { error: "no saved scan with that id" };
+    }
+    if (!scan.techIds.includes(techId)) {
+      reply.code(400);
+      return { error: `scan ${scanId} did not detect "${techId}"` };
+    }
+    return reportFalsePositive({ scanId, techId, url: scan.url, note });
   });
 
   return app;

@@ -25,6 +25,7 @@
           <ul id="site-list" class="site-list"></ul>
         </div>
 
+        <button id="rule-quality-nav" class="theme-toggle" type="button">Rule quality</button>
         <button id="theme-toggle" class="theme-toggle" type="button">Toggle dark mode</button>
       </aside>
 
@@ -53,6 +54,21 @@
             <h2>Security &amp; privacy notes</h2>
             <p class="insights-caveat">Probabilistic hints based on observed signals — not confirmed findings.</p>
             <div id="insights" class="insights"></div>
+          </section>
+        </div>
+
+        <div id="rule-quality-view" class="report hidden">
+          <header class="report-header">
+            <h1>Rule quality</h1>
+            <div class="report-meta">Built from this installation's own scan history and false-positive reports — local only, never sent anywhere.</div>
+          </header>
+          <section class="categories">
+            <table id="rule-quality-table" class="rule-quality-table">
+              <thead>
+                <tr><th>Technology</th><th>Times detected</th><th>Hit rate</th><th>False-positive reports</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </section>
         </div>
       </main>

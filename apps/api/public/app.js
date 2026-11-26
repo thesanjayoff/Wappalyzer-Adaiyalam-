@@ -12,8 +12,12 @@ const stackGraph = document.getElementById("stack-graph");
 const categoriesEl = document.getElementById("categories");
 const insightsEl = document.getElementById("insights");
 const themeToggle = document.getElementById("theme-toggle");
+const ruleQualityNav = document.getElementById("rule-quality-nav");
+const ruleQualityView = document.getElementById("rule-quality-view");
+const ruleQualityTableBody = document.querySelector("#rule-quality-table tbody");
 
 let categoryLabels = {};
+let currentSavedScanId = null;
 
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
@@ -82,9 +86,56 @@ async function openSite(hostname) {
   }
 }
 
+async function loadRuleQuality() {
+  try {
+    const rows = await fetchJson("/api/rule-quality");
+    ruleQualityTableBody.innerHTML = "";
+    for (const row of rows) {
+      if (row.timesDetected === 0 && row.falsePositiveReports === 0) continue;
+      const tr = document.createElement("tr");
+      if (row.falsePositiveReports > 0) tr.className = "rule-quality-flagged";
+      tr.innerHTML = `<td>${row.techId}</td><td>${row.timesDetected}</td><td>${(row.hitRate * 100).toFixed(1)}%</td><td>${row.falsePositiveReports}</td>`;
+      ruleQualityTableBody.appendChild(tr);
+    }
+    if (!ruleQualityTableBody.children.length) {
+      ruleQualityTableBody.innerHTML = '<tr><td colspan="4">No data yet — scan some sites first.</td></tr>';
+    }
+  } catch (err) {
+    ruleQualityTableBody.innerHTML = `<tr><td colspan="4">Failed to load: ${err.message}</td></tr>`;
+  }
+}
+
+ruleQualityNav.addEventListener("click", () => {
+  emptyState.classList.add("hidden");
+  report.classList.add("hidden");
+  ruleQualityView.classList.remove("hidden");
+  loadRuleQuality();
+});
+
+async function reportFalsePositive(techId, button) {
+  if (!currentSavedScanId) {
+    window.alert("This report wasn't saved to history, so there's nothing to attach the feedback to.");
+    return;
+  }
+  const note = window.prompt(`Why was "${techId}" wrong? (optional)`) ?? "";
+  try {
+    await fetchJson("/api/feedback/false-positive", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ scanId: currentSavedScanId, techId, note: note || undefined }),
+    });
+    button.textContent = "Reported ✓";
+    button.disabled = true;
+  } catch (err) {
+    window.alert(`Could not record report: ${err.message}`);
+  }
+}
+
 function renderReport(reportData) {
   emptyState.classList.add("hidden");
+  ruleQualityView.classList.add("hidden");
   report.classList.remove("hidden");
+  currentSavedScanId = reportData.savedScanId ?? null;
 
   reportTitle.textContent = reportData.url;
   reportMeta.innerHTML = "";
@@ -182,6 +233,14 @@ function renderReport(reportData) {
       pill.className = `confidence-pill ${confidenceClass(detection.confidence)}`;
       pill.textContent = `${detection.confidence}%`;
       row.appendChild(pill);
+
+      const fpButton = document.createElement("button");
+      fpButton.className = "fp-report-button";
+      fpButton.type = "button";
+      fpButton.title = "Report this detection as wrong (local only)";
+      fpButton.textContent = "⚠ report";
+      fpButton.addEventListener("click", () => reportFalsePositive(detection.techId, fpButton));
+      row.appendChild(fpButton);
 
       card.appendChild(row);
     }
